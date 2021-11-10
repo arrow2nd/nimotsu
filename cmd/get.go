@@ -18,7 +18,7 @@ var getCmd = &cobra.Command{
 	Use:     "get",
 	Short:   "track your package",
 	Long:    ``,
-	Example: "  numotsu get [<tracking number>]",
+	Example: "  numotsu get [<flag>] [<tracking number>]",
 	Run:     execGetCmd,
 }
 
