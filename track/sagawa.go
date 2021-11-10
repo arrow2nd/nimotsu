@@ -1,8 +1,10 @@
 package track
 
 import (
+	"fmt"
 	"log"
 	"net/url"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -35,14 +37,13 @@ func (t *Track) TrackBySagawa() {
 			}
 
 			var field [fieldMax]string
-
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
 
 			t.statuses = append(t.statuses, Status{
-				Date:    field[1],
-				Message: field[0][3:], // 先頭文字以降
+				Date:    fmt.Sprintf("%d/%s", time.Now().Year(), field[1]),
+				Message: field[0][3:], // 先頭の文字を削除
 				Office:  field[2],
 			})
 		})

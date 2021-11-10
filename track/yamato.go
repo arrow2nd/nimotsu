@@ -1,8 +1,10 @@
 package track
 
 import (
+	"fmt"
 	"log"
 	"net/url"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -24,6 +26,10 @@ func (t *Track) TrackByYamato() {
 		item := s.Find("div .item").Text()
 		date := s.Find("div .date").Text()
 		name := s.Find("div .name").Text()
+
+		// 日付の書式を変更
+		pt, _ := time.Parse("01月02日 15:04", date)
+		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format("01/02 15:04"))
 
 		t.statuses = append(t.statuses, Status{
 			Date:    date,
