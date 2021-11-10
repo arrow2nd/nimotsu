@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
+	"github.com/arrow2nd/nimotsu/track"
 	"github.com/spf13/cobra"
 )
 
@@ -20,27 +22,30 @@ var getCmd = &cobra.Command{
 
 		// 引数エラー
 		if len(args) > 1 {
-			fmt.Println("Error : Too many arguments!")
-			return
+			log.Fatalln("[Error] Too many arguments")
 		}
+
+		pack := track.New(args[0], "なし")
 
 		isJP, _ := cmd.Flags().GetBool("japanpost")
 		isYamato, _ := cmd.Flags().GetBool("yamato")
 		isSagawa, _ := cmd.Flags().GetBool("sagawa")
-		number := args[0]
 
-		// 業者毎に分岐
+		// 業者ごとに追跡
 		switch {
 		case isJP:
-			fmt.Println("JapanPost : " + number)
+			pack.TrackByJapanPost()
 		case isYamato:
-			fmt.Println("Yamato : " + number)
+			pack.TrackByYamato()
 		case isSagawa:
-			fmt.Println("Sagawa : " + number)
+			pack.TrackBySagawa()
 		default:
-			// 追加済みの番号を検索
-			fmt.Println("Search AddedList : " + number)
+			log.Fatalln("[Error] Please specify the shipping carrier")
 		}
+
+		data := pack.CreateTableData()
+
+		track.ShowTable(&data)
 	},
 }
 
