@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"log"
+	"os"
 
 	"github.com/arrow2nd/nimotsu/track"
 	"github.com/spf13/cobra"
@@ -22,7 +22,8 @@ var getCmd = &cobra.Command{
 
 		// 引数エラー
 		if len(args) > 1 {
-			log.Fatalln("[Error] Too many arguments")
+			fmt.Fprintln(os.Stderr, "[Error] Too many arguments")
+			return
 		}
 
 		pack := track.New(args[0], "なし")
@@ -40,10 +41,15 @@ var getCmd = &cobra.Command{
 		case isSagawa:
 			pack.TrackBySagawa()
 		default:
-			log.Fatalln("[Error] Please specify the shipping carrier")
+			fmt.Fprintln(os.Stderr, "[Error] Please specify the shipping carrier")
+			return
 		}
 
 		data := pack.CreateTableData()
+		if len(data) == 0 {
+			fmt.Fprintln(os.Stderr, "[Error] The tracking number or shipping carrier is incorrect")
+			return
+		}
 
 		track.ShowTable(&data)
 	},
@@ -51,9 +57,9 @@ var getCmd = &cobra.Command{
 
 func init() {
 	// 業者指定フラグ
-	getCmd.Flags().BoolP("japanpost", "j", false, "Track Japan Post")
-	getCmd.Flags().BoolP("yamato", "y", false, "Track Yamato Transport")
-	getCmd.Flags().BoolP("sagawa", "s", false, "Tracking Sagawa Express")
+	getCmd.Flags().BoolP("japanpost", "j", false, "track Japan Post")
+	getCmd.Flags().BoolP("yamato", "y", false, "track Yamato Transport")
+	getCmd.Flags().BoolP("sagawa", "s", false, "track Sagawa Express")
 
 	rootCmd.AddCommand(getCmd)
 }
