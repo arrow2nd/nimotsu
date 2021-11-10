@@ -16,6 +16,8 @@ func (t *Track) TrackBySagawa() {
 		fieldMax  = 3
 	)
 
+	t.company = "佐川急便"
+
 	val := url.Values{}
 	val.Add("okurijoNo", t.number)
 
@@ -25,7 +27,7 @@ func (t *Track) TrackBySagawa() {
 	}
 
 	doc.Find("table.table_basic.table_okurijo_detail2").Each(func(i int, s *goquery.Selection) {
-		// 荷物情報を読み飛ばす
+		// 1ループ目は荷物情報なので読み飛ばす
 		if i == 0 {
 			return
 		}
@@ -37,6 +39,7 @@ func (t *Track) TrackBySagawa() {
 			}
 
 			var field [fieldMax]string
+
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})

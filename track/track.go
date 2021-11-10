@@ -2,6 +2,7 @@ package track
 
 // Track 追跡情報
 type Track struct {
+	company  string
 	number   string
 	memo     string
 	statuses []Status
@@ -28,6 +29,7 @@ func (t *Track) CreateTableData() [][]string {
 
 	for _, status := range t.statuses {
 		data = append(data, []string{
+			t.company,
 			t.number,
 			t.memo,
 			status.Message,

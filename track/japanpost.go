@@ -14,6 +14,8 @@ func (t *Track) TrackByJapanPost() {
 		fieldMax     = 6
 	)
 
+	t.company = "日本郵便"
+
 	val := url.Values{}
 	val.Add("searchKind", "S002")
 	val.Add("locale", "ja")
@@ -27,7 +29,7 @@ func (t *Track) TrackByJapanPost() {
 	var field [fieldMax]string
 
 	doc.Find("[summary='履歴情報'] td").Each(func(i int, s *goquery.Selection) {
-		// 履歴情報を追加
+		// 配達状況を追加
 		if (i+1)%fieldMax == 0 {
 			t.statuses = append(t.statuses, Status{
 				Date:    field[0],
