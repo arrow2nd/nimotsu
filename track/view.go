@@ -7,6 +7,6 @@ func (t *Track) View() {
 	fmt.Printf("追跡番号 : %s\n", t.number)
 
 	for i, status := range t.statuses {
-		fmt.Printf("%d) %s %s %s %s\n", i+1, status.Message, status.Date, status.Memo, status.Office)
+		fmt.Printf("%d) %s %s %s\n", i+1, status.Message, status.Date, status.Office)
 	}
 }

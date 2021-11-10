@@ -32,7 +32,6 @@ func (t *Track) TrackByJapanPost() {
 			t.statuses = append(t.statuses, Status{
 				Date:    field[0],
 				Message: field[1],
-				Memo:    field[2],
 				Office:  field[4] + " " + field[3],
 			})
 		}

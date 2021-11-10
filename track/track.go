@@ -10,7 +10,6 @@ type Track struct {
 type Status struct {
 	Date    string
 	Message string
-	Memo    string
 	Office  string
 }
 
