@@ -8,9 +8,10 @@ type Track struct {
 
 // Status 状態
 type Status struct {
-	Message string
 	Date    string
+	Message string
 	Memo    string
+	Office  string
 }
 
 // New 生成

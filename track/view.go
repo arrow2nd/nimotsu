@@ -2,8 +2,11 @@ package track
 
 import "fmt"
 
-// View 表示
+// View 情報を表示
 func (t *Track) View() {
-	fmt.Println(t.number)
-	fmt.Println(t.statuses)
+	fmt.Printf("追跡番号 : %s\n", t.number)
+
+	for i, status := range t.statuses {
+		fmt.Printf("%d) %s %s %s %s\n", i+1, status.Message, status.Date, status.Memo, status.Office)
+	}
 }
