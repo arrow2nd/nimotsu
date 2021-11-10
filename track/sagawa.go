@@ -8,10 +8,10 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// Sagawa 佐川急便を追跡
-func Sagawa(tracknumber string) {
+// TrackBySagawa 佐川急便を追跡
+func (t *Track) TrackBySagawa() {
 	val := url.Values{}
-	val.Add("okurijoNo", tracknumber)
+	val.Add("okurijoNo", t.number)
 
 	doc, err := fetchBody("https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do", val)
 	if err != nil {

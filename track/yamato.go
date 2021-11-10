@@ -8,11 +8,11 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// Yamato ヤマト運輸を追跡
-func Yamato(tracknumber string) {
+// TrackByYamato ヤマト運輸を追跡
+func (t *Track) TrackByYamato() {
 	val := url.Values{}
 	val.Add("number00", "1") // 取得件数？
-	val.Add("number01", tracknumber)
+	val.Add("number01", t.number)
 
 	doc, err := fetchBody("https://toi.kuronekoyamato.co.jp/cgi-bin/tneko", val)
 	if err != nil {

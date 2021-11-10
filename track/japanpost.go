@@ -8,12 +8,12 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// JapanPost 日本郵便を追跡
-func JapanPost(tracknumber string) {
+// TrackByJapanPost 日本郵便を追跡
+func (t *Track) TrackByJapanPost() {
 	val := url.Values{}
 	val.Add("searchKind", "S002")
 	val.Add("locale", "ja")
-	val.Add("reqCodeNo1", tracknumber)
+	val.Add("reqCodeNo1", t.number)
 
 	doc, err := fetchBody("https://trackings.post.japanpost.jp/services/srv/search/direct", val)
 	if err != nil {
