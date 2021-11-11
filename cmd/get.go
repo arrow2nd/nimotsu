@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/arrow2nd/nimotsu/track"
 	"github.com/spf13/cobra"
@@ -15,15 +14,15 @@ var (
 )
 
 var getCmd = &cobra.Command{
-	Use:     "get",
+	Use:     "get [track number]",
 	Short:   "track your package",
-	Long:    ``,
-	Example: "  numotsu get [<flag>] [<tracking number>]",
-	Run:     execGetCmd,
+	Long:    `track your package for the carrier you specify.`,
+	Example: "  nimotsu get --japanpost 112233445566",
+	Args:    cobra.MinimumNArgs(1),
+	RunE:    execGetCmd,
 }
 
 func init() {
-	// 業者指定フラグ
 	getCmd.Flags().BoolVarP(&isJapanPost, "japanpost", "j", false, "track Japan Post")
 	getCmd.Flags().BoolVarP(&isYamato, "yamato", "y", false, "track Yamato Transport")
 	getCmd.Flags().BoolVarP(&isSagawa, "sagawa", "s", false, "track Sagawa Express")
@@ -31,22 +30,25 @@ func init() {
 	rootCmd.AddCommand(getCmd)
 }
 
-func execGetCmd(cmd *cobra.Command, args []string) {
-	// 引数エラー
-	if len(args) > 1 {
-		fmt.Fprintln(os.Stderr, "[Error] Too many arguments")
-		return
+func execGetCmd(cmd *cobra.Command, args []string) error {
+	// 業者の指定が正しいかチェック
+	enabledFlagCount := 0
+	if isJapanPost {
+		enabledFlagCount++
+	}
+	if isYamato {
+		enabledFlagCount++
+	}
+	if isSagawa {
+		enabledFlagCount++
 	}
 
-	// 追加済みの番号を全て追跡
-	if len(args) == 0 {
-		fmt.Println("Get All Added Number")
-		return
+	if enabledFlagCount > 1 {
+		return fmt.Errorf("expected exactly one of `--japanpost`, `--yamato`, or `--sagawa` to be true")
 	}
 
 	// 追跡
 	pack := track.New(args[0], "なし")
-
 	switch {
 	case isJapanPost:
 		pack.TrackByJapanPost()
@@ -54,17 +56,13 @@ func execGetCmd(cmd *cobra.Command, args []string) {
 		pack.TrackByYamato()
 	case isSagawa:
 		pack.TrackBySagawa()
-	default:
-		fmt.Fprintln(os.Stderr, "[Error] Please specify the shipping carrier")
-		return
 	}
 
 	// 表示
-	data := pack.CreateTableData()
-	if len(data) == 0 {
-		fmt.Fprintln(os.Stderr, "[Error] The tracking number or shipping carrier is incorrect")
-		return
+	err := pack.View()
+	if err != nil {
+		return err
 	}
 
-	track.ShowTable(&data)
+	return nil
 }
