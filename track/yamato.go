@@ -13,7 +13,7 @@ import (
 func (t *Track) TrackByYamato() {
 	const yamatoUrl = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
 
-	t.company = "クロネコヤマト"
+	t.carrier = "クロネコヤマト"
 
 	val := url.Values{}
 	val.Add("number00", "1") // 取得件数？

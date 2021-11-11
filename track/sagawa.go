@@ -16,7 +16,7 @@ func (t *Track) TrackBySagawa() {
 		fieldMax  = 3
 	)
 
-	t.company = "佐川急便"
+	t.carrier = "佐川急便"
 
 	val := url.Values{}
 	val.Add("okurijoNo", t.number)

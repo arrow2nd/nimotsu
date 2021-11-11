@@ -14,7 +14,7 @@ func (t *Track) TrackByJapanPost() {
 		fieldMax     = 6
 	)
 
-	t.company = "日本郵便"
+	t.carrier = "日本郵便"
 
 	val := url.Values{}
 	val.Add("searchKind", "S002")
