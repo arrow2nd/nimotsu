@@ -1,4 +1,4 @@
-package track
+package pack
 
 import (
 	"fmt"
@@ -7,9 +7,27 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+// CreateTableData 表データを作成
+func (p *PackInfo) CreateViewData() [][]string {
+	data := [][]string{}
+
+	for _, status := range p.statuses {
+		data = append(data, []string{
+			p.carrier,
+			p.number,
+			p.memo,
+			status.message,
+			status.date,
+			status.office,
+		})
+	}
+
+	return data
+}
+
 // View 追跡状況を表示
-func (t *Track) View() error {
-	data := t.CreateTableData()
+func (p *PackInfo) View() error {
+	data := p.CreateViewData()
 
 	if len(data) == 0 {
 		return fmt.Errorf("tracking number or shipping carrier is incorrect")

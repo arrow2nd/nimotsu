@@ -1,4 +1,4 @@
-package track
+package pack
 
 import (
 	"fmt"
@@ -9,15 +9,13 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// TrackByYamato ヤマト運輸を追跡
-func (t *Track) TrackByYamato() {
+// trackByYamato ヤマト運輸を追跡
+func (p *PackInfo) trackByYamato() {
 	const yamatoUrl = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
-
-	t.carrier = "クロネコヤマト"
 
 	val := url.Values{}
 	val.Add("number00", "1") // 取得件数？
-	val.Add("number01", t.number)
+	val.Add("number01", p.number)
 
 	doc, err := fetchBody(yamatoUrl, val)
 	if err != nil {
@@ -33,10 +31,10 @@ func (t *Track) TrackByYamato() {
 		pt, _ := time.Parse("01月02日 15:04", date)
 		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format("01/02 15:04"))
 
-		t.statuses = append(t.statuses, Status{
-			Date:    date,
-			Message: item,
-			Office:  name,
+		p.statuses = append(p.statuses, status{
+			date:    date,
+			message: item,
+			office:  name,
 		})
 	})
 }

@@ -1,4 +1,4 @@
-package track
+package pack
 
 import (
 	"fmt"
@@ -9,17 +9,15 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// TrackBySagawa 佐川急便を追跡
-func (t *Track) TrackBySagawa() {
+// trackBySagawa 佐川急便を追跡
+func (p *PackInfo) trackBySagawa() {
 	const (
 		sagawaUrl = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
 		fieldMax  = 3
 	)
 
-	t.carrier = "佐川急便"
-
 	val := url.Values{}
-	val.Add("okurijoNo", t.number)
+	val.Add("okurijoNo", p.number)
 
 	doc, err := fetchBody(sagawaUrl, val)
 	if err != nil {
@@ -44,10 +42,10 @@ func (t *Track) TrackBySagawa() {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
 
-			t.statuses = append(t.statuses, Status{
-				Date:    fmt.Sprintf("%d/%s", time.Now().Year(), field[1]),
-				Message: field[0][3:], // 先頭の文字を削除
-				Office:  field[2],
+			p.statuses = append(p.statuses, status{
+				date:    fmt.Sprintf("%d/%s", time.Now().Year(), field[1]),
+				message: field[0][3:], // 先頭の文字を削除
+				office:  field[2],
 			})
 		})
 	})
