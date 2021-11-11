@@ -5,14 +5,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newGetCmd() *cobra.Command {
+func (c *Cmd) newGetCmd() *cobra.Command {
 	getCmd := &cobra.Command{
 		Use:     "get [track number]",
-		Short:   "track your package",
-		Long:    `track your package for the carrier you specify.`,
+		Short:   "Track your package",
+		Long:    `Track your package for the carrier you specify.`,
 		Example: "  nimotsu get --japanpost 112233445566",
 		Args:    cobra.ExactValidArgs(1),
-		RunE:    execGetCmd,
+		RunE:    c.execGetCmd,
 	}
 
 	getCmd.Flags().BoolP("japanpost", "j", false, "track Japan Post")
@@ -22,7 +22,7 @@ func newGetCmd() *cobra.Command {
 	return getCmd
 }
 
-func execGetCmd(cmd *cobra.Command, args []string) error {
+func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
 	carrier, err := getCarrierName(cmd.Flags())
 	if err != nil {
 		return err

@@ -20,11 +20,11 @@ type List struct {
 type Item struct {
 	Carrier string
 	Number  string
-	Memo    string
+	Comment string
 }
 
 // New 生成
-func (l *List) New() *List {
+func New() *List {
 	return &List{
 		items: []Item{},
 	}
@@ -73,7 +73,7 @@ func (l *List) Load() error {
 		return err
 	}
 
-	err = yaml.Unmarshal(buf, l.items)
+	err = yaml.Unmarshal(buf, &l.items)
 	if err != nil {
 		return err
 	}
