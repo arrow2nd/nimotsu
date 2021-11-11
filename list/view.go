@@ -11,9 +11,9 @@ func (l *List) createTableData() [][]string {
 
 	for _, item := range l.items {
 		data = append(data, []string{
-			item.Carrier,
 			item.Number,
 			item.Comment,
+			item.Carrier,
 		})
 	}
 
@@ -25,7 +25,7 @@ func (l *List) View() {
 	table := tablewriter.NewWriter(os.Stdout)
 	data := l.createTableData()
 
-	table.SetHeader([]string{"運送業者", "追跡番号", "メモ"})
+	table.SetHeader([]string{"追跡番号", "コメント", "運送業者"})
 	table.SetBorder(true)
 	table.SetRowLine(true)
 	table.SetAutoMergeCells(true)

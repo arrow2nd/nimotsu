@@ -13,9 +13,9 @@ func (p *PackInfo) CreateViewData() [][]string {
 
 	for _, status := range p.statuses {
 		data = append(data, []string{
-			p.carrier,
 			p.number,
-			p.memo,
+			p.comment,
+			p.carrier,
 			status.message,
 			status.date,
 			status.office,
@@ -42,7 +42,7 @@ func (p *PackInfo) View() error {
 func ShowTable(data *[][]string) {
 	table := tablewriter.NewWriter(os.Stdout)
 
-	table.SetHeader([]string{"運送業者", "追跡番号", "メモ", "配達状況", "日時", "営業所"})
+	table.SetHeader([]string{"追跡番号", "コメント", "運送業者", "配達状況", "日時", "営業所"})
 	table.SetBorder(true)
 	table.SetRowLine(true)
 	table.SetAutoMergeCells(true)

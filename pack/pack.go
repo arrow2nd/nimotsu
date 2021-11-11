@@ -6,7 +6,7 @@ import "fmt"
 type PackInfo struct {
 	carrier  string
 	number   string
-	memo     string
+	comment  string
 	statuses []status
 }
 
@@ -18,11 +18,11 @@ type status struct {
 }
 
 // New 生成
-func New(carrier, tracknumber, memo string) *PackInfo {
+func New(carrier, tracknumber, comment string) *PackInfo {
 	return &PackInfo{
 		carrier: carrier,
 		number:  tracknumber,
-		memo:    memo,
+		comment: comment,
 	}
 }
 
