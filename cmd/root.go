@@ -10,6 +10,11 @@ var rootCmd = &cobra.Command{
 	Long:  ``, // TODO: あとで書く
 }
 
+func init() {
+	rootCmd.AddCommand(newGetCmd())
+	rootCmd.AddCommand(newAddCmd())
+}
+
 func Execute() {
 	rootCmd.Execute()
 }
