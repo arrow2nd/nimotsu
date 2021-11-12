@@ -21,7 +21,12 @@ func New(l *list.List) *Cmd {
 		},
 	}
 
-	cmd.root.AddCommand(cmd.newGetCmd(), cmd.newAddCmd(), cmd.newRemoveCmd())
+	cmd.root.AddCommand(
+		cmd.newGetCmd(),
+		cmd.newAddCmd(),
+		cmd.newRemoveCmd(),
+		cmd.newListCmd(),
+	)
 
 	return cmd
 }
