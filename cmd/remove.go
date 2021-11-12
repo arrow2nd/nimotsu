@@ -9,12 +9,15 @@ import (
 func (c *Cmd) newRemoveCmd() *cobra.Command {
 	removeCmd := &cobra.Command{
 		Use:     "remove [tracking number]",
-		Short:   "",
-		Long:    "",
+		Aliases: []string{"rm"},
+		Short:   "Remove the package",
+		Long:    "Remove a package from the list.",
 		Example: "  nimotsu remove 112233445566",
 		Args:    cobra.ExactValidArgs(1),
 		RunE:    c.execRemoveCmd,
 	}
+
+	removeCmd.AddCommand(c.newRemoveAllCmd())
 
 	return removeCmd
 }
