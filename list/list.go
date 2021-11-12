@@ -36,8 +36,8 @@ func (l *List) Clear() {
 }
 
 // AddItem 荷物をリストに追加
-func (l *List) AddItem(item Item) {
-	l.items = append(l.items, item)
+func (l *List) AddItem(item *Item) {
+	l.items = append(l.items, *item)
 }
 
 // RemoveItem 荷物をリストから削除
