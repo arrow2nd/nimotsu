@@ -46,7 +46,7 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	c.list.Save()
 
 	c.list.View()
-	fmt.Println("Success: added")
+	fmt.Println("Success: added " + newItem.Number)
 
 	return nil
 }
