@@ -28,13 +28,11 @@ func (p *PackInfo) CreateViewData() [][]string {
 // View 追跡状況を表示
 func (p *PackInfo) View() error {
 	data := p.CreateViewData()
-
 	if len(data) == 0 {
 		return fmt.Errorf("tracking number or shipping carrier is incorrect")
 	}
 
 	ShowTable(&data)
-
 	return nil
 }
 
