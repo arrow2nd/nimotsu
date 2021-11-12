@@ -11,7 +11,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 	addCmd := &cobra.Command{
 		Use:     "add [tracking number]",
 		Short:   "Add the package",
-		Long:    `Add the package to the list`,
+		Long:    "Add the package to the list.",
 		Example: "  nimotsu add --japanpost 112233445566 --comment DVD",
 		Args:    cobra.ExactValidArgs(1),
 		RunE:    c.execAddCmd,
@@ -46,7 +46,7 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	c.list.Save()
 
 	c.list.View()
-	fmt.Println("Success: added")
+	fmt.Println("Success: added " + newItem.Number)
 
 	return nil
 }

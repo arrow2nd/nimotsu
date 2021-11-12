@@ -9,7 +9,7 @@ func (c *Cmd) newGetCmd() *cobra.Command {
 	getCmd := &cobra.Command{
 		Use:     "get [track number]",
 		Short:   "Track your package",
-		Long:    `Track your package for the carrier you specify.`,
+		Long:    "Track your package for the carrier you specify.",
 		Example: "  nimotsu get --japanpost 112233445566",
 		Args:    cobra.ExactValidArgs(1),
 		RunE:    c.execGetCmd,
