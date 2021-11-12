@@ -8,8 +8,8 @@ func (c *Cmd) newListCmd() *cobra.Command {
 	listCmd := &cobra.Command{
 		Use:     "list",
 		Aliases: []string{"ls"},
-		Short:   "",
-		Long:    "",
+		Short:   "Display the packages",
+		Long:    "Display the packages in the list.",
 		Example: "  nimotsu list",
 		Args:    cobra.NoArgs,
 		Run:     c.execListCmd,

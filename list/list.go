@@ -25,6 +25,16 @@ func New() *List {
 	}
 }
 
+// Get リストを取得
+func (l *List) Get() []Item {
+	return l.items
+}
+
+// Claer リストをクリア
+func (l *List) Clear() {
+	l.items = []Item{}
+}
+
 // AddItem 荷物をリストに追加
 func (l *List) AddItem(item Item) {
 	l.items = append(l.items, item)
@@ -47,9 +57,4 @@ func (l *List) RemoveItem(number string) error {
 	l.items = new
 
 	return nil
-}
-
-// Claer リストをクリア
-func (l *List) Clear() {
-	l.items = []Item{}
 }
