@@ -24,6 +24,8 @@ func (p *PackInfo) trackBySagawa() error {
 		return err
 	}
 
+	var results []status
+
 	doc.Find("table.table_basic.table_okurijo_detail2").Each(func(i int, s *goquery.Selection) {
 		// 1ループ目は荷物情報なので読み飛ばす
 		if i == 0 {
@@ -37,12 +39,11 @@ func (p *PackInfo) trackBySagawa() error {
 			}
 
 			var field [sgFieldMax]string
-
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
 
-			p.statuses = append(p.statuses, status{
+			results = append(results, status{
 				date:    fmt.Sprintf("%d/%s", time.Now().Year(), field[1]),
 				message: field[0][3:], // 先頭の文字を削除
 				office:  field[2],
@@ -50,5 +51,10 @@ func (p *PackInfo) trackBySagawa() error {
 		})
 	})
 
+	if len(results) == 0 {
+		return fmt.Errorf("couldn't find the package (" + p.number + ")")
+	}
+
+	p.statuses = results
 	return nil
 }

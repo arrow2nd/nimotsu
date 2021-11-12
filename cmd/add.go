@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/arrow2nd/nimotsu/list"
+	"github.com/arrow2nd/nimotsu/pack"
 	"github.com/spf13/cobra"
 )
 
@@ -26,6 +27,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 }
 
 func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
+	// フラグから運送業者名を取得
 	carrier, err := getCarrierName(cmd.Flags())
 	if err != nil {
 		return err
@@ -34,6 +36,12 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	comment, _ := cmd.Flags().GetString("comment")
 	if comment == "" {
 		comment = "なし"
+	}
+
+	// 追跡番号が正しいかチェック
+	pack := pack.New(carrier, args[0], "")
+	if err = pack.Tracking(); err != nil {
+		return err
 	}
 
 	newItem := list.Item{

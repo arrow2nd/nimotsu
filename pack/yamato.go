@@ -24,6 +24,8 @@ func (p *PackInfo) trackByYamato() error {
 		return err
 	}
 
+	var results []status
+
 	doc.Find("div .tracking-invoice-block-detail li").Each(func(i int, s *goquery.Selection) {
 		item := s.Find("div .item").Text()
 		date := s.Find("div .date").Text()
@@ -33,12 +35,17 @@ func (p *PackInfo) trackByYamato() error {
 		pt, _ := time.Parse("01月02日 15:04", date)
 		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format("01/02 15:04"))
 
-		p.statuses = append(p.statuses, status{
+		results = append(results, status{
 			date:    date,
 			message: item,
 			office:  name,
 		})
 	})
 
+	if len(results) == 0 {
+		return fmt.Errorf("couldn't find the package (" + p.number + ")")
+	}
+
+	p.statuses = results
 	return nil
 }
