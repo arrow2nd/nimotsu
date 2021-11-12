@@ -1,7 +1,6 @@
 package list
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -17,13 +16,7 @@ func (l *List) Save() error {
 	}
 
 	path := getSaveFilePath()
-	err = ioutil.WriteFile(path, buf, os.ModePerm)
-	if err != nil {
-		fmt.Println("Error: Failed to write file")
-		panic(err)
-	}
-
-	return nil
+	return ioutil.WriteFile(path, buf, os.ModePerm)
 }
 
 // Load ファイルから読込
@@ -34,12 +27,7 @@ func (l *List) Load() error {
 		return err
 	}
 
-	err = yaml.Unmarshal(buf, &l.items)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return yaml.Unmarshal(buf, &l.items)
 }
 
 func getSaveFilePath() string {

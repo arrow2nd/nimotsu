@@ -19,18 +19,12 @@ func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 
 	defer res.Body.Close()
 
-	// アクセスエラー
 	if res.StatusCode != 200 {
 		return nil, fmt.Errorf("access failed (%d / %s)", res.StatusCode, res.Status)
 	}
 
 	// Bodyをパース
-	doc, err := goquery.NewDocumentFromReader(res.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return doc, nil
+	return goquery.NewDocumentFromReader(res.Body)
 }
 
 // removeConsecutiveSpace 連続したスペースを削除

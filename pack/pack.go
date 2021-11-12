@@ -28,16 +28,18 @@ func New(carrier, tracknumber, comment string) *PackInfo {
 
 // Tracking 追跡
 func (p *PackInfo) Tracking() error {
+	var err error
+
 	switch p.carrier {
 	case JapanPost:
-		p.trackByJapanPost()
+		err = p.trackByJapanPost()
 	case YamatoTransport:
-		p.trackByYamato()
+		err = p.trackByYamato()
 	case SagawaExpress:
-		p.trackBySagawa()
+		err = p.trackBySagawa()
 	default:
 		return fmt.Errorf("no carrier specified")
 	}
 
-	return nil
+	return err
 }

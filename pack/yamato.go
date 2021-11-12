@@ -2,24 +2,26 @@ package pack
 
 import (
 	"fmt"
-	"log"
 	"net/url"
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
-// trackByYamato ヤマト運輸を追跡
-func (p *PackInfo) trackByYamato() {
-	const yamatoUrl = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
+const (
+	YamatoTransport = "ヤマト運輸"
+	ymUrl           = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
+)
 
+// trackByYamato ヤマト運輸を追跡
+func (p *PackInfo) trackByYamato() error {
 	val := url.Values{}
 	val.Add("number00", "1") // 取得件数？
 	val.Add("number01", p.number)
 
-	doc, err := fetchBody(yamatoUrl, val)
+	doc, err := fetchBody(ymUrl, val)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	doc.Find("div .tracking-invoice-block-detail li").Each(func(i int, s *goquery.Selection) {
@@ -37,4 +39,6 @@ func (p *PackInfo) trackByYamato() {
 			office:  name,
 		})
 	})
+
+	return nil
 }

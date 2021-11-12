@@ -30,12 +30,10 @@ func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	pack := pack.New(carrier, args[0], "なし")
-	pack.Tracking()
-
-	err = pack.View()
+	err = pack.Tracking()
 	if err != nil {
 		return err
 	}
 
-	return nil
+	return pack.View()
 }
