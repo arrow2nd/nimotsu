@@ -27,7 +27,6 @@ func (c *Cmd) execGetAllCmd(cmd *cobra.Command, args []string) error {
 	mutex := sync.Mutex{}
 
 	for _, item := range c.list.Get() {
-
 		item := item
 
 		eg.Go(func() error {
