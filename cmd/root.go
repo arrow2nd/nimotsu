@@ -14,14 +14,14 @@ type Cmd struct {
 func New(l *list.List) *Cmd {
 	cmd := &Cmd{
 		list: l,
+		root: &cobra.Command{
+			Use:   "nimotsu",
+			Short: "CLI tool to track packages 📦",
+			Long:  "CLI tool to track packages by tracking number.",
+		},
 	}
 
-	cmd.root = &cobra.Command{
-		Use:   "nimotsu",
-		Short: "CLI tool to track packages 📦",
-		Long:  ``, // TODO: あとで書く
-	}
-	cmd.root.AddCommand(cmd.newGetCmd(), cmd.newAddCmd())
+	cmd.root.AddCommand(cmd.newGetCmd(), cmd.newAddCmd(), cmd.newRemoveCmd())
 
 	return cmd
 }

@@ -36,7 +36,7 @@ func (l *List) AddItem(item Item) {
 }
 
 // RemoveItem 荷物をリストから削除
-func (l *List) RemoveItem(number string) {
+func (l *List) RemoveItem(number string) error {
 	new := []Item{}
 
 	for _, item := range l.items {
@@ -45,7 +45,13 @@ func (l *List) RemoveItem(number string) {
 		}
 	}
 
+	if len(new) == len(l.items) {
+		return fmt.Errorf("not found")
+	}
+
 	l.items = new
+
+	return nil
 }
 
 // Save ファイルへ保存
