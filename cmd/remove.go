@@ -31,6 +31,5 @@ func (c *Cmd) execRemoveCmd(cmd *cobra.Command, args []string) error {
 	c.list.Save()
 
 	fmt.Println("Success: removed " + args[0])
-
 	return nil
 }

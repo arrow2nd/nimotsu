@@ -23,7 +23,6 @@ func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 		return nil, fmt.Errorf("access failed (%d / %s)", res.StatusCode, res.Status)
 	}
 
-	// Bodyをパース
 	return goquery.NewDocumentFromReader(res.Body)
 }
 

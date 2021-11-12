@@ -55,6 +55,5 @@ func (l *List) RemoveItem(number string) error {
 	}
 
 	l.items = new
-
 	return nil
 }

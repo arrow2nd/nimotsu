@@ -24,7 +24,6 @@ func (l *List) createTableData() [][]string {
 // View リストを表示する
 func (l *List) View() {
 	data := l.createTableData()
-
 	if len(data) == 0 {
 		fmt.Println("List is empty")
 		return
