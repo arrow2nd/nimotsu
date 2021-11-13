@@ -22,11 +22,10 @@ func (l *List) createTableData() [][]string {
 }
 
 // View リストを表示する
-func (l *List) View() {
+func (l *List) View() error {
 	data := l.createTableData()
 	if len(data) == 0 {
-		fmt.Println("List is empty")
-		return
+		return fmt.Errorf("list is empty")
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
@@ -36,4 +35,6 @@ func (l *List) View() {
 	table.SetAutoMergeCells(true)
 	table.AppendBulk(data)
 	table.Render()
+
+	return nil
 }

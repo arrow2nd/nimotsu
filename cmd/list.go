@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
@@ -19,5 +21,7 @@ func (c *Cmd) newListCmd() *cobra.Command {
 }
 
 func (c *Cmd) execListCmd(cmd *cobra.Command, args []string) {
-	c.list.View()
+	if err := c.list.View(); err != nil {
+		fmt.Println("📥  There's nothing")
+	}
 }
