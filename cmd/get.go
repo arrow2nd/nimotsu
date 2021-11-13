@@ -7,7 +7,7 @@ import (
 
 func (c *Cmd) newGetCmd() *cobra.Command {
 	getCmd := &cobra.Command{
-		Use:     "get [track number]",
+		Use:     "get [tracking number]",
 		Short:   "Track Package",
 		Long:    "Track package for the carrier you specify.",
 		Example: "  nimotsu get --japanpost 112233445566",

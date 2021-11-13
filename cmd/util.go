@@ -9,22 +9,18 @@ import (
 
 // getCarrierName 運送業者名をフラグから取得
 func getCarrierName(flags *pflag.FlagSet) (string, error) {
-	isJapanPost, _ := flags.GetBool("japanpost")
-	isYamato, _ := flags.GetBool("yamato")
-	isSagawa, _ := flags.GetBool("sagawa")
-
 	enabledFlagCount := 0
 	carrier := ""
 
-	if isJapanPost {
+	if jp, _ := flags.GetBool("japanpost"); jp {
 		enabledFlagCount++
 		carrier = pack.JapanPost
 	}
-	if isYamato {
+	if ym, _ := flags.GetBool("yamato"); ym {
 		enabledFlagCount++
 		carrier = pack.YamatoTransport
 	}
-	if isSagawa {
+	if sg, _ := flags.GetBool("sagawa"); sg {
 		enabledFlagCount++
 		carrier = pack.SagawaExpress
 	}

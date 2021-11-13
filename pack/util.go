@@ -30,6 +30,5 @@ func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 func removeConsecutiveSpace(str string) string {
 	str = strings.TrimSpace(str)
 	rep := regexp.MustCompile(`\s+`)
-
 	return rep.ReplaceAllString(str, " ")
 }
