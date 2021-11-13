@@ -19,7 +19,7 @@ archives:
       amd64: x86_64
 
 brews:
-  - name: twnyan
+  - name: nimotsu
     tap:
       owner: arrow2nd
       name: homebrew-tap
