@@ -58,6 +58,6 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	})
 	c.list.Save()
 
-	fmt.Println("Success: added (" + tNumber + ")")
+	fmt.Println("📦  Added '" + tNumber + "'")
 	return nil
 }

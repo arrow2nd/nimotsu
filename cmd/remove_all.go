@@ -23,5 +23,5 @@ func (c *Cmd) execRemoveAllCmd(cmd *cobra.Command, args []string) {
 	c.list.Clear()
 	c.list.Save()
 
-	fmt.Println("Success: all removed")
+	fmt.Println("🗑  All removed")
 }

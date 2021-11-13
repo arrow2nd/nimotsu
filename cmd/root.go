@@ -17,7 +17,7 @@ func New(l *list.List) *Cmd {
 		root: &cobra.Command{
 			Use:   "nimotsu",
 			Short: "CLI tool to track packages 📦",
-			Long:  "CLI tool to track packages by tracking number.",
+			Long:  "CLI tool to track packages by tracking number 📦",
 		},
 	}
 
