@@ -5,6 +5,8 @@
 
 荷物の配達状況を追跡する CLI ツール
 
+![screenshot](https://user-images.githubusercontent.com/44780846/141614236-b7ea80b9-e76f-4514-a0ce-d1fb19e5290a.png)
+
 ## 対応している運送業者
 
 - 日本郵便
