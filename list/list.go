@@ -57,3 +57,14 @@ func (l *List) RemoveItem(number string) error {
 	l.items = new
 	return nil
 }
+
+// Exists リスト内に存在するか
+func (l *List) Exists(number string) bool {
+	for _, item := range l.items {
+		if item.Number == number {
+			return true
+		}
+	}
+
+	return false
+}

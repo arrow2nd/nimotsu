@@ -27,7 +27,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 }
 
 func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
-	number := args[0]
+	tNumber := args[0]
 
 	// フラグから運送業者名を取得
 	carrier, err := getCarrierName(cmd.Flags())
@@ -35,24 +35,29 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	// リストに登録済みかチェック
+	if c.list.Exists(tNumber) {
+		return fmt.Errorf("this tracking number exists in the list")
+	}
+
+	// 追跡番号が正しいかチェック
+	pack := pack.New(carrier, tNumber, "")
+	if err = pack.Tracking(); err != nil {
+		return fmt.Errorf("this tracking number is wrong")
+	}
+
 	comment, _ := cmd.Flags().GetString("comment")
 	if comment == "" {
 		comment = "なし"
 	}
 
-	// 追跡番号が正しいかチェック
-	pack := pack.New(carrier, number, "")
-	if err = pack.Tracking(); err != nil {
-		return fmt.Errorf("the tracking number is wrong")
-	}
-
 	c.list.AddItem(&list.Item{
 		Carrier: carrier,
-		Number:  number,
+		Number:  tNumber,
 		Comment: comment,
 	})
 	c.list.Save()
 
-	fmt.Println("Success: added (" + number + ")")
+	fmt.Println("Success: added (" + tNumber + ")")
 	return nil
 }
