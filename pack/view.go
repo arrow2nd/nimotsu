@@ -39,7 +39,6 @@ func (p *PackInfo) View() error {
 // ShowTable テーブルを表示
 func ShowTable(data *[][]string) {
 	table := tablewriter.NewWriter(os.Stdout)
-
 	table.SetHeader([]string{"追跡番号", "コメント", "運送業者", "配達状況", "日時", "営業所"})
 	table.SetBorder(true)
 	table.SetRowLine(true)

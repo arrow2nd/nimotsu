@@ -18,10 +18,10 @@ type status struct {
 }
 
 // New 生成
-func New(carrier, tracknumber, comment string) *PackInfo {
+func New(carrier, tNumber, comment string) *PackInfo {
 	return &PackInfo{
 		carrier: carrier,
-		number:  tracknumber,
+		number:  tNumber,
 		comment: comment,
 	}
 }

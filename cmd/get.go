@@ -7,7 +7,7 @@ import (
 
 func (c *Cmd) newGetCmd() *cobra.Command {
 	getCmd := &cobra.Command{
-		Use:     "get [track number]",
+		Use:     "get [tracking number]",
 		Short:   "Track Package",
 		Long:    "Track package for the carrier you specify.",
 		Example: "  nimotsu get --japanpost 112233445566",
@@ -30,8 +30,8 @@ func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	pack := pack.New(carrier, args[0], "なし")
-	err = pack.Tracking()
-	if err != nil {
+
+	if err := pack.Tracking(); err != nil {
 		return err
 	}
 

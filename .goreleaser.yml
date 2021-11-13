@@ -1,0 +1,47 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+
+brews:
+  - name: twnyan
+    tap:
+      owner: arrow2nd
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    folder: Formula
+    homepage: "https://arrow2nd.com/works/nimotsu"
+    description: "CLI tool to track packages in Japan 📦"
+    license: "MIT"
+    test: |
+      system "#{bin}/nimotsu ver"
+    install: |
+      bin.install "nimotsu"
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"

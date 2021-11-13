@@ -23,13 +23,15 @@ func (c *Cmd) newRemoveCmd() *cobra.Command {
 }
 
 func (c *Cmd) execRemoveCmd(cmd *cobra.Command, args []string) error {
-	err := c.list.RemoveItem(args[0])
+	number := args[0]
+
+	err := c.list.RemoveItem(number)
 	if err != nil {
 		return err
 	}
 
 	c.list.Save()
 
-	fmt.Println("Success: removed " + args[0])
+	fmt.Println("🗑  Removed '" + number + "'")
 	return nil
 }

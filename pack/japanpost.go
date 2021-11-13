@@ -1,6 +1,7 @@
 package pack
 
 import (
+	"fmt"
 	"net/url"
 
 	"github.com/PuerkitoBio/goquery"
@@ -24,12 +25,15 @@ func (p *PackInfo) trackByJapanPost() error {
 		return err
 	}
 
-	var field [jpFieldMax]string
-	
+	var (
+		results []status
+		field   [jpFieldMax]string
+	)
+
 	doc.Find("[summary='履歴情報'] td").Each(func(i int, s *goquery.Selection) {
 		// 配達状況を追加
 		if (i+1)%jpFieldMax == 0 {
-			p.statuses = append(p.statuses, status{
+			results = append(results, status{
 				date:    field[0],
 				message: field[1],
 				office:  field[4] + " " + field[3],
@@ -39,5 +43,10 @@ func (p *PackInfo) trackByJapanPost() error {
 		field[i%jpFieldMax] = s.Text()
 	})
 
+	if len(results) == 0 {
+		return fmt.Errorf("couldn't find the package (" + p.number + ")")
+	}
+
+	p.statuses = results
 	return nil
 }
