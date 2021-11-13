@@ -20,7 +20,7 @@ func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 	defer res.Body.Close()
 
 	if res.StatusCode != 200 {
-		return nil, fmt.Errorf("access failed (%d / %s)", res.StatusCode, res.Status)
+		return nil, fmt.Errorf("access failed (%d : %s)", res.StatusCode, res.Status)
 	}
 
 	return goquery.NewDocumentFromReader(res.Body)
