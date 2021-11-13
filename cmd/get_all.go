@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/arrow2nd/nimotsu/pack"
@@ -22,6 +23,10 @@ func (c *Cmd) newGetAllCmd() *cobra.Command {
 }
 
 func (c *Cmd) execGetAllCmd(cmd *cobra.Command, args []string) error {
+	if len(c.list.Get()) == 0 {
+		return fmt.Errorf("no package to track")
+	}
+
 	results := [][]string{}
 	eg := errgroup.Group{}
 	mutex := sync.Mutex{}
