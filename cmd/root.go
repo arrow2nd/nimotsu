@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const version = "1.0.0"
+
 type Cmd struct {
 	root *cobra.Command
 	list *list.List
@@ -27,6 +29,7 @@ func New(l *list.List) *Cmd {
 		cmd.newAddCmd(),
 		cmd.newRemoveCmd(),
 		cmd.newListCmd(),
+		cmd.newVersionCmd(),
 	)
 
 	return cmd
