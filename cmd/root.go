@@ -21,6 +21,7 @@ func New(l *list.List) *Cmd {
 		},
 	}
 
+	cmd.root.SilenceUsage = true
 	cmd.root.AddCommand(
 		cmd.newGetCmd(),
 		cmd.newAddCmd(),
