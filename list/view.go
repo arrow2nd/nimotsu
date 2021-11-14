@@ -29,7 +29,7 @@ func (l *List) View() error {
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"追跡番号", "コメント", "運送業者"})
+	table.SetHeader([]string{"追跡番号", "コメント", "配送業者"})
 	table.SetBorder(true)
 	table.SetRowLine(true)
 	table.SetAutoMergeCells(true)

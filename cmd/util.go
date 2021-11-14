@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/pflag"
 )
 
-// getCarrierName 運送業者名をフラグから取得
+// getCarrierName 配送業者名をフラグから取得
 func getCarrierName(flags *pflag.FlagSet) (string, error) {
 	enabledFlagCount := 0
 	carrier := ""
