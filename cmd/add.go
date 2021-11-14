@@ -29,7 +29,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	tNumber := args[0]
 
-	// フラグから運送業者名を取得
+	// フラグから配送業者名を取得
 	carrier, err := getCarrierName(cmd.Flags())
 	if err != nil {
 		return err

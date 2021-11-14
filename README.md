@@ -1,13 +1,15 @@
-# nimotsu 📦
+![nimotsu](https://user-images.githubusercontent.com/44780846/141674359-ac2f2dfb-3c7d-42a5-8841-955ab051fde1.png)
 
 [![release](https://github.com/arrow2nd/nimotsu/actions/workflows/release.yml/badge.svg)](https://github.com/arrow2nd/nimotsu/actions/workflows/release.yml)
 [![GitHub license](https://img.shields.io/github/license/arrow2nd/nimotsu)](https://github.com/arrow2nd/nimotsu/blob/main/LICENSE)
 
 荷物の配達状況を追跡する CLI ツール
 
+## スクリーンショット
+
 ![screenshot](https://user-images.githubusercontent.com/44780846/141614236-b7ea80b9-e76f-4514-a0ce-d1fb19e5290a.png)
 
-## 対応している運送業者
+## 対応している配送業者
 
 - 日本郵便
 - ヤマト運輸
