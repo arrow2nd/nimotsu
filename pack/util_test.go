@@ -1,46 +1,17 @@
 package pack
 
 import (
-	"net/url"
-	"reflect"
 	"testing"
-
-	"github.com/PuerkitoBio/goquery"
 )
 
 func Test_fetchBody(t *testing.T) {
-	type args struct {
-		url string
-		val url.Values
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    *goquery.Document
-		wantErr bool
-	}{
-		{
-			name: "正しくエラーが返るか",
-			args: args{
-				url: "https://hoge.test",
-				val: map[string][]string{},
-			},
-			want:    nil,
-			wantErr: true,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := fetchBody(tt.args.url, tt.args.val)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("fetchBody() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("fetchBody() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("正しくエラーが返るか", func(t *testing.T) {
+		_, err := fetchBody("https://hoge.test", map[string][]string{})
+		if err == nil {
+			t.Errorf("fetchBody() error = %v, wantErr %v", err, true)
+			return
+		}
+	})
 }
 
 func Test_removeConsecutiveSpace(t *testing.T) {
