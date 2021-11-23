@@ -71,70 +71,51 @@ func TestList_AddItem(t *testing.T) {
 }
 
 func TestList_RemoveItem(t *testing.T) {
-	type fields struct {
-		items []Item
-	}
-	type args struct {
-		number string
-	}
 	tests := []struct {
 		name    string
-		fields  fields
-		args    args
+		items   []Item
+		arg     string
 		wantErr bool
 	}{
 		{
 			name: "削除できるか",
-			fields: fields{
-				items: []Item{
-					{
-						Carrier: "A",
-						Number:  "012345",
-						Comment: "testA",
-					},
-					{
-						Carrier: "B",
-						Number:  "678901",
-						Comment: "testB",
-					},
+			items: []Item{
+				{
+					Carrier: "A",
+					Number:  "012345",
+					Comment: "testA",
 				},
-			},
-			args: args{
-				number: "012345",
-			},
-			wantErr: false,
-		},
-		{
-			name: "指定された番号が存在しない場合エラーが返るか",
-			fields: fields{
-				items: []Item{{
+				{
 					Carrier: "B",
 					Number:  "678901",
 					Comment: "testB",
 				},
-				},
 			},
-			args: args{
-				number: "123456",
-			},
+			arg:     "012345",
+			wantErr: false,
+		},
+		{
+			name: "指定された番号が存在しない場合エラーが返るか",
+			items: []Item{{
+				Carrier: "B",
+				Number:  "678901",
+				Comment: "testB",
+			}},
+			arg:     "123456",
 			wantErr: true,
 		},
 		{
-			name: "データが存在しない場合エラーが返るか",
-			fields: fields{
-				items: []Item{},
-			},
-			args: args{
-				number: "123456",
-			},
+			name:    "データが存在しない場合エラーが返るか",
+			items:   []Item{},
+			arg:     "123456",
 			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := New()
-			l.items = tt.fields.items
-			if err := l.RemoveItem(tt.args.number); (err != nil) != tt.wantErr {
+			l.items = tt.items
+			if err := l.RemoveItem(tt.arg); (err != nil) != tt.wantErr {
 				t.Errorf("List.RemoveItem() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -142,12 +123,6 @@ func TestList_RemoveItem(t *testing.T) {
 }
 
 func TestList_Exists(t *testing.T) {
-	type fields struct {
-		items []Item
-	}
-	type args struct {
-		number string
-	}
 	testItems := []Item{
 		{
 			Carrier: "A",
@@ -161,48 +136,34 @@ func TestList_Exists(t *testing.T) {
 		},
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   bool
+		name  string
+		items []Item
+		arg   string
+		want  bool
 	}{
 		{
-			name: "存在する番号",
-			fields: fields{
-				items: testItems,
-			},
-			args: args{
-				number: "789012",
-			},
-			want: true,
+			name:  "存在する番号",
+			items: testItems,
+			arg:   "789012",
+			want:  true,
 		},
 		{
-			name: "存在しない番号",
-			fields: fields{
-				items: testItems,
-			},
-			args: args{
-				number: "000000",
-			},
-			want: false,
+			name:  "存在しない番号",
+			items: testItems,
+			arg:   "000000",
+			want:  false,
 		},
 		{
-			name: "データが存在しない",
-			fields: fields{
-				items: []Item{},
-			},
-			args: args{
-				number: "123456",
-			},
-			want: false,
+			name:  "データが存在しない",
+			items: []Item{},
+			arg:   "123456",
+			want:  false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &List{
-				items: tt.fields.items,
-			}
-			if got := l.Exists(tt.args.number); got != tt.want {
+			l := &List{items: tt.items}
+			if got := l.Exists(tt.arg); got != tt.want {
 				t.Errorf("List.Exists() = %v, want %v", got, tt.want)
 			}
 		})
