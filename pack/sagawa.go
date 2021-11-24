@@ -9,6 +9,7 @@ import (
 )
 
 const (
+	// SagawaExpress 配送業者名
 	SagawaExpress = "佐川急便"
 	sgUrl         = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
 	sgFieldMax    = 3

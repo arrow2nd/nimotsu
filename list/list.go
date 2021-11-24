@@ -30,7 +30,7 @@ func (l *List) Get() []Item {
 	return l.items
 }
 
-// Claer リストをクリア
+// Clear リストをクリア
 func (l *List) Clear() {
 	l.items = []Item{}
 }

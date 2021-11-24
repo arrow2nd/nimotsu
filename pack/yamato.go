@@ -9,6 +9,7 @@ import (
 )
 
 const (
+	// YamatoTransport 配送業者名
 	YamatoTransport = "ヤマト運輸"
 	ymUrl           = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
 )

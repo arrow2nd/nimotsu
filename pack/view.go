@@ -7,7 +7,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-// CreateTableData 表データを作成
+// CreateViewData 表データを作成
 func (p *PackInfo) CreateViewData() [][]string {
 	data := [][]string{}
 

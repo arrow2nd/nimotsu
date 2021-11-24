@@ -8,6 +8,7 @@ import (
 )
 
 const (
+	// JapanPost 配送業者名
 	JapanPost  = "日本郵便"
 	jpUrl      = "https://trackings.post.japanpost.jp/services/srv/search/direct"
 	jpFieldMax = 6
