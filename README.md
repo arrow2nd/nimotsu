@@ -1,6 +1,8 @@
-![nimotsu](https://user-images.githubusercontent.com/44780846/141674359-ac2f2dfb-3c7d-42a5-8841-955ab051fde1.png)
+![nimotsu](https://user-images.githubusercontent.com/44780846/143192856-74afca8a-d837-4c7e-96dc-239ef15960a5.png)
 
+[![test](https://github.com/arrow2nd/nimotsu/actions/workflows/test.yml/badge.svg)](https://github.com/arrow2nd/nimotsu/actions/workflows/test.yml)
 [![release](https://github.com/arrow2nd/nimotsu/actions/workflows/release.yml/badge.svg)](https://github.com/arrow2nd/nimotsu/actions/workflows/release.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/arrow2nd/nimotsu)](https://goreportcard.com/report/github.com/arrow2nd/nimotsu)
 [![GitHub license](https://img.shields.io/github/license/arrow2nd/nimotsu)](https://github.com/arrow2nd/nimotsu/blob/main/LICENSE)
 
 荷物の配達状況を追跡する CLI ツール
