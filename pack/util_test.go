@@ -1,17 +1,49 @@
 package pack
 
 import (
+	"net/url"
 	"testing"
 )
 
 func Test_fetchBody(t *testing.T) {
-	t.Run("正しくエラーが返るか", func(t *testing.T) {
-		_, err := fetchBody("https://hoge.test", map[string][]string{})
-		if err == nil {
-			t.Errorf("fetchBody() error = %v, wantErr %v", err, true)
-			return
-		}
-	})
+	type args struct {
+		url string
+		val url.Values
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "取得できるか",
+			args: args{
+				url: "http://example.com/",
+				val: url.Values{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "エラーが返るか（404）",
+			args: args{
+				url: "https://httpstat.us/404",
+				val: url.Values{},
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := fetchBody(tt.args.url, tt.args.val)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("fetchBody() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if err == nil && got == nil {
+				t.Errorf("no value for fetchBody")
+			}
+		})
+	}
 }
 
 func Test_removeConsecutiveSpace(t *testing.T) {
