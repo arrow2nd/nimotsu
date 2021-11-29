@@ -9,7 +9,6 @@ import (
 func (c *Cmd) newEditCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:     "edit [tracking number] [comment]",
-		Aliases: []string{"ed"},
 		Short:   "Edit the package comments",
 		Long:    "Edit the package comments in the list.",
 		Example: "  nimotsu edit 112233445566 \"Blu-ray\"",
