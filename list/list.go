@@ -51,7 +51,7 @@ func (l *List) RemoveItem(number string) error {
 	}
 
 	if len(new) == len(l.items) {
-		return fmt.Errorf("not found")
+		return fmt.Errorf("no tracking number found")
 	}
 
 	l.items = new
@@ -67,4 +67,16 @@ func (l *List) Exists(number string) bool {
 	}
 
 	return false
+}
+
+// ChangeComment コメントを変更する
+func (l *List) ChangeComment(number, comment string) error {
+	for i := 0; i < len(l.items); i++ {
+		if l.items[i].Number == number {
+			l.items[i].Comment = comment
+			return nil
+		}
+	}
+
+	return fmt.Errorf("no tracking number found")
 }
