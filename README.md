@@ -44,7 +44,7 @@ go install github.com/arrow2nd/nimotsu@latest
 追跡番号から荷物を追跡します。
 
 ```txt
-$ nimotsu get --japanpost 112233445566
+nimotsu get --japanpost 112233445566
 ```
 
 ### get all
@@ -52,7 +52,7 @@ $ nimotsu get --japanpost 112233445566
 リスト内の荷物を全て追跡します。
 
 ```txt
-$ nimotsu get all
+nimotsu get all
 ```
 
 ### add
@@ -64,7 +64,7 @@ $ nimotsu get all
 コメントを省略した場合、"なし"が設定されます。
 
 ```txt
-$ nimotsu add --japanpost 112233445566 --comment "🍺"
+nimotsu add --japanpost 112233445566 --comment "🍺"
 ```
 
 ### remove
@@ -74,7 +74,7 @@ $ nimotsu add --japanpost 112233445566 --comment "🍺"
 リストから荷物を削除します。
 
 ```txt
-$ nimotsu remove 112233445566
+nimotsu remove 112233445566
 ```
 
 ### remove all
@@ -82,7 +82,7 @@ $ nimotsu remove 112233445566
 リスト内の荷物を全て削除します。
 
 ```txt
-$ nimotsu remove all
+nimotsu remove all
 ```
 
 ### edit
@@ -92,7 +92,7 @@ $ nimotsu remove all
 荷物のコメントを変更します
 
 ```txt
-$ nimotsu edit 112233445566 "🍷"
+nimotsu edit 112233445566 "🍷"
 ```
 
 ### list
@@ -100,7 +100,7 @@ $ nimotsu edit 112233445566 "🍷"
 リスト内の荷物を表示します
 
 ```txt
-$ nimotsu list
+nimotsu list
 ```
 
 ### version
@@ -108,5 +108,5 @@ $ nimotsu list
 バージョンを表示します。
 
 ```txt
-$ nimotsu version
+nimotsu version
 ```
