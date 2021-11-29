@@ -7,7 +7,9 @@ import (
 
 func main() {
 	list := list.New()
-	list.Load()
+	if err := list.Load(); err != nil {
+		panic(err)
+	}
 
 	cmd := cmd.New(list)
 	cmd.Execute()

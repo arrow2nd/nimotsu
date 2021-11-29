@@ -29,7 +29,7 @@ func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	pack := pack.New(carrier, args[0], "なし")
+	pack := pack.New(carrier, args[0], noCommentMessage)
 
 	if err := pack.Tracking(); err != nil {
 		return err

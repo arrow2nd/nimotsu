@@ -169,3 +169,55 @@ func TestList_Exists(t *testing.T) {
 		})
 	}
 }
+
+func TestList_ChangeComment(t *testing.T) {
+	testItems := []Item{{
+		Carrier: "A",
+		Number:  "123456",
+		Comment: "testA",
+	}}
+	type args struct {
+		number  string
+		comment string
+	}
+	tests := []struct {
+		name    string
+		items   []Item
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{
+			name:  "変更できるか",
+			items: testItems,
+			args: args{
+				number:  "123456",
+				comment: "changed",
+			},
+			want:    "changed",
+			wantErr: false,
+		},
+		{
+			name:  "指定された番号が存在しない場合エラーが返るか",
+			items: testItems,
+			args: args{
+				number:  "567890",
+				comment: "changed",
+			},
+			want:    "changed",
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			l := &List{items: tt.items}
+			if err := l.ChangeComment(tt.args.number, tt.args.comment); (err != nil) != tt.wantErr {
+				t.Errorf("List.ChangeComment() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if cmt := l.items[0].Comment; cmt != tt.want {
+				t.Errorf("Comment = %s, want %s", cmt, tt.want)
+			}
+		})
+	}
+}

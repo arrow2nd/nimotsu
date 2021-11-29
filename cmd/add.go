@@ -13,7 +13,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 		Use:     "add [tracking number]",
 		Short:   "Add the package",
 		Long:    "Add the package to the list.",
-		Example: "  nimotsu add --japanpost 112233445566 --comment DVD",
+		Example: "  nimotsu add --japanpost 112233445566 --comment \"DVD\"",
 		Args:    cobra.ExactValidArgs(1),
 		RunE:    c.execAddCmd,
 	}
@@ -27,7 +27,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 }
 
 func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
-	tNumber := args[0]
+	number := args[0]
 
 	// フラグから配送業者名を取得
 	carrier, err := getCarrierName(cmd.Flags())
@@ -36,28 +36,31 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	// リストに登録済みかチェック
-	if c.list.Exists(tNumber) {
+	if c.list.Exists(number) {
 		return fmt.Errorf("this tracking number exists in the list")
 	}
 
 	// 追跡番号が正しいかチェック
-	pack := pack.New(carrier, tNumber, "")
+	pack := pack.New(carrier, number, "")
 	if err = pack.Tracking(); err != nil {
 		return fmt.Errorf("this tracking number is wrong")
 	}
 
 	comment, _ := cmd.Flags().GetString("comment")
 	if comment == "" {
-		comment = "なし"
+		comment = noCommentMessage
 	}
 
 	c.list.AddItem(&list.Item{
 		Carrier: carrier,
-		Number:  tNumber,
+		Number:  number,
 		Comment: comment,
 	})
-	c.list.Save()
 
-	fmt.Println("📦  Added '" + tNumber + "'")
+	if err := c.list.Save(); err != nil {
+		return err
+	}
+
+	fmt.Printf("Added: %s / %s\n", number, comment)
 	return nil
 }
