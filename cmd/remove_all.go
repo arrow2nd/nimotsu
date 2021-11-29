@@ -13,15 +13,19 @@ func (c *Cmd) newRemoveAllCmd() *cobra.Command {
 		Long:    "Remove all packages in the list.",
 		Example: "  nimotsu remove all",
 		Args:    cobra.NoArgs,
-		Run:     c.execRemoveAllCmd,
+		RunE:    c.execRemoveAllCmd,
 	}
 
 	return removeAllCmd
 }
 
-func (c *Cmd) execRemoveAllCmd(cmd *cobra.Command, args []string) {
+func (c *Cmd) execRemoveAllCmd(cmd *cobra.Command, args []string) error {
 	c.list.Clear()
-	c.list.Save()
 
-	fmt.Println("🗑  All removed")
+	if err := c.list.Save(); err != nil {
+		return err
+	}
+
+	fmt.Println("All removed!")
+	return nil
 }

@@ -22,6 +22,6 @@ func (c *Cmd) newListCmd() *cobra.Command {
 
 func (c *Cmd) execListCmd(cmd *cobra.Command, args []string) {
 	if err := c.list.View(); err != nil {
-		fmt.Println("📥  There's nothing")
+		fmt.Println("There's nothing!")
 	}
 }
