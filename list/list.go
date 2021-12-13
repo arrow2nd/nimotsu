@@ -35,6 +35,11 @@ func (l *List) Clear() {
 	l.items = []Item{}
 }
 
+// IsEmpty リストが空かどうか
+func (l *List) IsEmpty() bool {
+	return len(l.items) == 0
+}
+
 // AddItem 荷物をリストに追加
 func (l *List) AddItem(item *Item) {
 	l.items = append(l.items, *item)

@@ -26,7 +26,7 @@ func (c *Cmd) newGetCmd() *cobra.Command {
 func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
 	carrier, err := getCarrierName(cmd.Flags())
 	if err != nil {
-		return err
+		return nil
 	}
 
 	pack := pack.New(carrier, args[0], noCommentMessage)

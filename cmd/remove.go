@@ -8,12 +8,11 @@ import (
 
 func (c *Cmd) newRemoveCmd() *cobra.Command {
 	removeCmd := &cobra.Command{
-		Use:     "remove [tracking number]",
+		Use:     "remove",
 		Aliases: []string{"rm"},
 		Short:   "Remove the package",
 		Long:    "Remove a package from the list.",
-		Example: "  nimotsu remove 112233445566",
-		Args:    cobra.ExactValidArgs(1),
+		Args:    cobra.NoArgs,
 		RunE:    c.execRemoveCmd,
 	}
 
@@ -23,10 +22,16 @@ func (c *Cmd) newRemoveCmd() *cobra.Command {
 }
 
 func (c *Cmd) execRemoveCmd(cmd *cobra.Command, args []string) error {
-	number := args[0]
+	if c.list.IsEmpty() {
+		return fmt.Errorf("list is empty")
+	}
 
-	err := c.list.RemoveItem(number)
+	number, err := c.selectTrackingNumber()
 	if err != nil {
+		return nil
+	}
+
+	if err := c.list.RemoveItem(number); err != nil {
 		return err
 	}
 
@@ -34,6 +39,6 @@ func (c *Cmd) execRemoveCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Printf("Removed: %s\n", number)
+	showSuccessMessage("Removed!")
 	return nil
 }
