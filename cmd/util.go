@@ -83,7 +83,7 @@ func (c *Cmd) selectTrackingNumber() (string, error) {
 
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}?",
-		Active:   `{{ ">" | cyan }}  {{ .Number | cyan }}`,
+		Active:   `{{ ">" | cyan }} {{ .Number | cyan }}`,
 		Inactive: "  {{ .Number }}",
 		Selected: `{{ "Number:" | faint }} {{ .Number }}`,
 		Details: `{{ "Carrier:" | faint }} {{ .Carrier }}
