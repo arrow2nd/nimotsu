@@ -29,7 +29,7 @@ func getCarrierName(flags *pflag.FlagSet) (string, error) {
 
 	// フラグの指定が不正なら選択させる
 	if enabledFlagCount != 1 {
-		return selectShippingCompany()
+		return selectCarrier()
 	}
 
 	return carrier, nil
@@ -54,17 +54,17 @@ func inputComment() (string, error) {
 	return result, nil
 }
 
-// selectShippingCompany 配送業者を選択
-func selectShippingCompany() (string, error) {
+// selectCarrier 配送業者を選択
+func selectCarrier() (string, error) {
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}?",
 		Active:   `{{ ">" | cyan }} {{ . | cyan }}`,
 		Inactive: "  {{ . }}",
-		Selected: `{{ "Shipping company:" | faint }} {{ . }}`,
+		Selected: `{{ "Carrier:" | faint }} {{ . }}`,
 	}
 
 	prompt := promptui.Select{
-		Label:     "Shipping company",
+		Label:     "Carrier",
 		Items:     []string{pack.JapanPost, pack.YamatoTransport, pack.SagawaExpress},
 		Templates: templates,
 	}
@@ -85,7 +85,7 @@ func (c *Cmd) selectTrackingNumber() (string, error) {
 		Label:    "{{ . }}?",
 		Active:   `{{ ">" | cyan }} {{ .Number | cyan }}`,
 		Inactive: "  {{ .Number }}",
-		Selected: `{{ "Number:" | faint }} {{ .Number }}`,
+		Selected: `{{ "Tracking number:" | faint }} {{ .Number }}`,
 		Details: `{{ "Carrier:" | faint }} {{ .Carrier }}
 {{ "Comment:" | faint }} {{ .Comment }}`,
 	}
@@ -106,5 +106,5 @@ func (c *Cmd) selectTrackingNumber() (string, error) {
 
 // showSuccessMessage 完了メッセージ
 func showSuccessMessage(text string) {
-	fmt.Printf("%s  %s\n", color.GreenString("✔"), text)
+	fmt.Printf("%s %s\n", color.GreenString("✔"), text)
 }
