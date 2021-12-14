@@ -137,5 +137,5 @@ $ nimotsu list
 
 ```txt
 $ nimotsu version
-📦  nimotsu ver.x.x.x
+📦 nimotsu ver.x.x.x
 ```
