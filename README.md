@@ -39,12 +39,23 @@ go install github.com/arrow2nd/nimotsu@latest
 
 ### get
 
-`get [<配送業者フラグ>] [<追跡番号>]`
+`get [<追跡番号>] [配送業者フラグ]`
 
 追跡番号から荷物を追跡します。
 
 ```txt
-nimotsu get --japanpost 112233445566
+$ nimotsu get 1122334455 --sagawa
+```
+
+配送業者を指定しなかった場合、選択肢が表示されます。
+
+```txt
+$ nimotsu get 112233445566
+Use the arrow keys to navigate: ↓ ↑ → ←
+Carrier?
+  > 日本郵便
+    ヤマト運輸
+    佐川急便
 ```
 
 ### get all
@@ -52,29 +63,44 @@ nimotsu get --japanpost 112233445566
 リスト内の荷物を全て追跡します。
 
 ```txt
-nimotsu get all
+$ nimotsu get all
 ```
 
 ### add
 
-`add [<配送業者フラグ>] [<追跡番号>] [--comment "コメント"]`
+`add [<追跡番号>] [配送業者フラグ] [--comment "コメント"]`
 
 リストに荷物を追加します。
 
-コメントを省略した場合、"なし"が設定されます。
+コメントを省略した場合、"なし" が設定されます。
 
 ```txt
-nimotsu add --japanpost 112233445566 --comment "🍺"
+$ nimotsu add 112233445566 --japanpost --comment "🍺"
+✔ Added!
+```
+
+配送業者・コメントを指定しなかった場合、対話形式で入力できます。
+
+```txt
+$ nimotsu add 112233445566
+Carrier: 日本郵便
+Comment: beer🍺
+✔ Added!
 ```
 
 ### remove
 
-`remove [<追跡番号>]`
-
-リストから荷物を削除します。
+リスト内の荷物を選択して削除します。
 
 ```txt
-nimotsu remove 112233445566
+$ nimotsu remove
+Use the arrow keys to navigate: ↓ ↑ → ←
+Tracking number?
+    112233445566
+    223344556677
+  > 123456789123
+Carrier: 日本郵便
+Comment: beer🍺
 ```
 
 ### remove all
@@ -82,17 +108,19 @@ nimotsu remove 112233445566
 リスト内の荷物を全て削除します。
 
 ```txt
-nimotsu remove all
+$ nimotsu remove all
+✔ Removed all!
 ```
 
 ### edit
 
-`edit [<追跡番号>] [<コメント>]`
-
-荷物のコメントを変更します
+リスト内の荷物を選択してコメントを変更します。
 
 ```txt
-nimotsu edit 112233445566 "🍷"
+$ nimotsu edit
+Tracking number: 444191245470
+Comment: iPad
+✔ Edited!
 ```
 
 ### list
@@ -100,7 +128,7 @@ nimotsu edit 112233445566 "🍷"
 リスト内の荷物を表示します
 
 ```txt
-nimotsu list
+$ nimotsu list
 ```
 
 ### version
@@ -108,5 +136,6 @@ nimotsu list
 バージョンを表示します。
 
 ```txt
-nimotsu version
+$ nimotsu version
+📦 nimotsu ver.x.x.x
 ```

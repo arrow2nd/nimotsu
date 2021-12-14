@@ -21,5 +21,5 @@ func (c *Cmd) newVersionCmd() *cobra.Command {
 }
 
 func (c *Cmd) execVersionCmd(cmd *cobra.Command, args []string) {
-	fmt.Println("nimotsu 📦  ver." + version)
+	fmt.Printf("📦 nimotsu ver.%s\n", version)
 }

@@ -32,7 +32,7 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	// フラグから配送業者名を取得
 	carrier, err := getCarrierName(cmd.Flags())
 	if err != nil {
-		return err
+		return nil
 	}
 
 	// リストに登録済みかチェック
@@ -47,8 +47,15 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	}
 
 	comment, _ := cmd.Flags().GetString("comment")
+
+	// コメントが無い場合入力
 	if comment == "" {
-		comment = noCommentMessage
+		result, err := inputComment()
+		if err != nil {
+			return nil
+		}
+
+		comment = result
 	}
 
 	c.list.AddItem(&list.Item{
@@ -61,6 +68,6 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Printf("Added: %s / %s\n", number, comment)
+	showSuccessMessage("Added!")
 	return nil
 }

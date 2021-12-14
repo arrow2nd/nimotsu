@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -26,6 +24,6 @@ func (c *Cmd) execRemoveAllCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Println("All removed!")
+	showSuccessMessage("All removed!")
 	return nil
 }
