@@ -26,6 +26,10 @@
 
 - ファイル操作に関する例外処理の実装漏れを修正
 
-## [1.0.0] - 2021-11-13
+## 1.0.0 - 2021-11-13
 
 - リリースしました！
+
+[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/arrow2nd/nimotsu/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/arrow2nd/nimotsu/compare/v1.0.0...v1.1.0
