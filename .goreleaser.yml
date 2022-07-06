@@ -17,7 +17,9 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
-
+    format_overrides:
+      - goos: windows
+        format: zip
 brews:
   - name: nimotsu
     tap:
@@ -33,6 +35,17 @@ brews:
       system "#{bin}/nimotsu ver"
     install: |
       bin.install "nimotsu"
+
+scoop:
+  bucket:
+    owner: arrow2nd
+    name: scoop-bucket
+    token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+  url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+  homepage: "https://arrow2nd.com/works/nimotsu"
+  description: "CLI tool to track packages in Japan 📦"
+  license: "MIT"
+
 checksum:
   name_template: "checksums.txt"
 
