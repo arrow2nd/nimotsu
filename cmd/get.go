@@ -24,12 +24,12 @@ func (c *Cmd) newGetCmd() *cobra.Command {
 }
 
 func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
-	carrier, err := getCarrierName(cmd.Flags())
+	carrierName, err := getCarrierName(cmd.Flags())
 	if err != nil {
 		return nil
 	}
 
-	pack := pack.New(carrier, args[0], noCommentMessage)
+	pack := pack.New(carrierName, args[0], noCommentMessage)
 
 	if err := pack.Tracking(); err != nil {
 		return err

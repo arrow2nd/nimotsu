@@ -9,33 +9,19 @@ import (
 	"github.com/spf13/pflag"
 )
 
-// getCarrierName 配送業者名をフラグから取得
-func getCarrierName(flags *pflag.FlagSet) (string, error) {
-	enabledFlagCount := 0
-	carrier := ""
-
-	if jp, _ := flags.GetBool("japanpost"); jp {
-		enabledFlagCount++
-		carrier = pack.JapanPost
-	}
-	if ym, _ := flags.GetBool("yamato"); ym {
-		enabledFlagCount++
-		carrier = pack.YamatoTransport
-	}
-	if sg, _ := flags.GetBool("sagawa"); sg {
-		enabledFlagCount++
-		carrier = pack.SagawaExpress
+// getCarrierName : 配送業者IDをフラグから取得
+func getCarrierName(flags *pflag.FlagSet) (pack.CarrierName, error) {
+	for name, key := range pack.GetCarriers() {
+		if exist, _ := flags.GetBool(string(key)); exist {
+			return name, nil
+		}
 	}
 
 	// フラグの指定が不正なら選択させる
-	if enabledFlagCount != 1 {
-		return selectCarrier()
-	}
-
-	return carrier, nil
+	return selectCarrier()
 }
 
-// inputComment コメントを入力
+// inputComment : コメントを入力
 func inputComment() (string, error) {
 	prompt := promptui.Prompt{
 		Label: "Comment",
@@ -54,8 +40,8 @@ func inputComment() (string, error) {
 	return result, nil
 }
 
-// selectCarrier 配送業者を選択
-func selectCarrier() (string, error) {
+// selectCarrier : 配送業者を選択
+func selectCarrier() (pack.CarrierName, error) {
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}?",
 		Active:   `{{ ">" | cyan }} {{ . | cyan }}`,
@@ -65,7 +51,7 @@ func selectCarrier() (string, error) {
 
 	prompt := promptui.Select{
 		Label:     "Carrier",
-		Items:     []string{pack.JapanPost, pack.YamatoTransport, pack.SagawaExpress},
+		Items:     pack.GetCarrierNames(),
 		Templates: templates,
 	}
 
@@ -74,10 +60,10 @@ func selectCarrier() (string, error) {
 		return "", err
 	}
 
-	return result, nil
+	return pack.CarrierName(result), nil
 }
 
-// selectTrackingNumber リスト内の追跡番号を選択
+// selectTrackingNumber : リスト内の追跡番号を選択
 func (c *Cmd) selectTrackingNumber() (string, error) {
 	items := c.list.Get()
 

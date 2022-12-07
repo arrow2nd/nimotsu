@@ -10,7 +10,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// fetchBody Bodyを取得
+// fetchBody : Bodyを取得
 func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 	res, err := http.PostForm(url, val)
 	if err != nil {
@@ -26,7 +26,7 @@ func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 	return goquery.NewDocumentFromReader(res.Body)
 }
 
-// removeConsecutiveSpace 連続したスペースを削除
+// removeConsecutiveSpace : 連続したスペースを削除
 func removeConsecutiveSpace(str string) string {
 	str = strings.TrimSpace(str)
 	rep := regexp.MustCompile(`[\s　]+`)

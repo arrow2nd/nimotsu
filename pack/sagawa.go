@@ -8,21 +8,28 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const (
-	// SagawaExpress 配送業者名
-	SagawaExpress = "佐川急便"
-	sgUrl         = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
-	sgFieldMax    = 3
-)
+// CarrierSagawa : 佐川急便
+const CarrierSagawa CarrierName = "佐川急便"
 
-// trackBySagawa 佐川急便を追跡
-func (p *PackInfo) trackBySagawa() error {
+func init() {
+	carriers[CarrierSagawa] = &carrier{
+		key:      "sagawa",
+		tracking: trackingBySagawa,
+	}
+}
+
+func trackingBySagawa(trackingNumber string) ([]status, error) {
+	const (
+		trackingURL = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
+		fieldMax    = 3
+	)
+
 	val := url.Values{}
-	val.Add("okurijoNo", p.number)
+	val.Add("okurijoNo", trackingNumber)
 
-	doc, err := fetchBody(sgUrl, val)
+	doc, err := fetchBody(trackingURL, val)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	var results []status
@@ -39,7 +46,7 @@ func (p *PackInfo) trackBySagawa() error {
 				return
 			}
 
-			var field [sgFieldMax]string
+			var field [fieldMax]string
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
@@ -53,9 +60,8 @@ func (p *PackInfo) trackBySagawa() error {
 	})
 
 	if len(results) == 0 {
-		return fmt.Errorf("couldn't find the package (" + p.number + ")")
+		return nil, fmt.Errorf("couldn't find the package (" + trackingNumber + ")")
 	}
 
-	p.statuses = results
-	return nil
+	return results, nil
 }
