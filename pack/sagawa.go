@@ -28,7 +28,7 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 	val := url.Values{}
 	val.Add("okurijoNo", trackingNumber)
 
-	doc, err := fetchBody(trackingURL, val)
+	doc, err := fetch(trackingURL, val)
 	if err != nil {
 		return nil, err
 	}

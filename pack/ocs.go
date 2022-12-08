@@ -27,7 +27,7 @@ func trackingByOCS(trackingNumber string) ([]status, error) {
 	val := url.Values{}
 	val.Add("cwbno", trackingNumber)
 
-	doc, err := fetchBody(trackingURL, val)
+	doc, err := fetch(trackingURL, val)
 	if err != nil {
 		return nil, err
 	}

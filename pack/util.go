@@ -10,8 +10,8 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// fetchBody : Bodyを取得
-func fetchBody(url string, val url.Values) (*goquery.Document, error) {
+// fetch : Webサイトを取得
+func fetch(url string, val url.Values) (*goquery.Document, error) {
 	res, err := http.PostForm(url, val)
 	if err != nil {
 		return nil, err

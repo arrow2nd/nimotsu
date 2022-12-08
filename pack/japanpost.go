@@ -31,7 +31,7 @@ func trackingByJapanPost(trackingNumber string) ([]status, error) {
 	val.Add("locale", "ja")
 	val.Add("reqCodeNo1", trackingNumber)
 
-	doc, err := fetchBody(trackingURL, val)
+	doc, err := fetch(trackingURL, val)
 	if err != nil {
 		return nil, err
 	}

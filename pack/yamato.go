@@ -29,7 +29,7 @@ func trackingByYamato(trackingNumber string) ([]status, error) {
 	val.Add("number00", "1") // 取得件数？
 	val.Add("number01", trackingNumber)
 
-	doc, err := fetchBody(trackingURL, val)
+	doc, err := fetch(trackingURL, val)
 	if err != nil {
 		return nil, err
 	}
