@@ -2,6 +2,8 @@ package pack
 
 import "errors"
 
+const dateFormat = "2006/01/02 15:04"
+
 // Package : 荷物の情報
 type Package struct {
 	carrierName    Carrier

@@ -1,7 +1,6 @@
 package pack
 
 import (
-	"fmt"
 	"net/url"
 
 	"github.com/PuerkitoBio/goquery"
@@ -56,7 +55,7 @@ func trackingByJapanPost(trackingNumber string) ([]status, error) {
 	})
 
 	if len(results) == 0 {
-		return nil, fmt.Errorf("couldn't find the package (" + trackingNumber + ")")
+		return nil, createNotFoundError(trackingNumber)
 	}
 
 	return results, nil

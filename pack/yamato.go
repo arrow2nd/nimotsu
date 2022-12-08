@@ -34,7 +34,7 @@ func trackingByYamato(trackingNumber string) ([]status, error) {
 		return nil, err
 	}
 
-	var results []status
+	results := []status{}
 
 	doc.Find("div .tracking-invoice-block-detail li").Each(func(i int, s *goquery.Selection) {
 		item := s.Find("div .item").Text()
@@ -43,7 +43,7 @@ func trackingByYamato(trackingNumber string) ([]status, error) {
 
 		// 日付の書式を変更
 		pt, _ := time.Parse("01月02日 15:04", date)
-		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format("01/02 15:04"))
+		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format(dateFormat))
 
 		results = append(results, status{
 			date:    date,
@@ -53,7 +53,7 @@ func trackingByYamato(trackingNumber string) ([]status, error) {
 	})
 
 	if len(results) == 0 {
-		return nil, fmt.Errorf("couldn't find the package (" + trackingNumber + ")")
+		return nil, createNotFoundError(trackingNumber)
 	}
 
 	return results, nil

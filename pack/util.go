@@ -32,3 +32,8 @@ func removeConsecutiveSpace(str string) string {
 	rep := regexp.MustCompile(`[\s　]+`)
 	return rep.ReplaceAllString(str, " ")
 }
+
+// createNotFoundError : 見つからなかったときのエラーを作成
+func createNotFoundError(n string) error {
+	return fmt.Errorf("couldn't find the package (%s)", n)
+}

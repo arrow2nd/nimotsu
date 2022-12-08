@@ -23,10 +23,7 @@ func init() {
 }
 
 func trackingBySagawa(trackingNumber string) ([]status, error) {
-	const (
-		trackingURL = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
-		fieldMax    = 3
-	)
+	const trackingURL = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
 
 	val := url.Values{}
 	val.Add("okurijoNo", trackingNumber)
@@ -38,6 +35,7 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 
 	var results []status
 
+	// TODO: Eqで2個目の要素をもらってインデントを減らしたい
 	doc.Find("table.table_basic.table_okurijo_detail2").Each(func(i int, s *goquery.Selection) {
 		// 1ループ目は荷物情報なので読み飛ばす
 		if i == 0 {
@@ -50,7 +48,8 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 				return
 			}
 
-			var field [fieldMax]string
+			var field []string
+			// TODO: Map()を使う形にしたい
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
@@ -64,7 +63,7 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 	})
 
 	if len(results) == 0 {
-		return nil, fmt.Errorf("couldn't find the package (" + trackingNumber + ")")
+		return nil, createNotFoundError(trackingNumber)
 	}
 
 	return results, nil
