@@ -15,9 +15,7 @@ func (c *Cmd) newGetCmd() *cobra.Command {
 		RunE:    c.execGetCmd,
 	}
 
-	getCmd.Flags().BoolP("japanpost", "j", false, "track Japan Post")
-	getCmd.Flags().BoolP("yamato", "y", false, "track Yamato Transport")
-	getCmd.Flags().BoolP("sagawa", "s", false, "track Sagawa Express")
+	setCarrierFlags(getCmd)
 	getCmd.AddCommand(c.newGetAllCmd())
 
 	return getCmd

@@ -2,30 +2,37 @@ package pack
 
 import "sort"
 
-// CarrierName : 配送業者名
-type CarrierName string
+// Carrier : 配送業者名
+type Carrier string
+
+// CarrierInfo : 配送業者の情報
+type CarrierInfo struct {
+	Key    string
+	Alias  string
+	NameEn string
+}
 
 type carrier struct {
-	key      string
+	*CarrierInfo
 	tracking func(string) ([]status, error)
 }
 
-var carriers = map[CarrierName]*carrier{}
+var carriers = map[Carrier]*carrier{}
 
 // GetCarriers : 配送業者のリストを取得
-func GetCarriers() map[CarrierName]string {
-	cs := map[CarrierName]string{}
+func GetCarriers() map[Carrier]CarrierInfo {
+	list := map[Carrier]CarrierInfo{}
 
 	for name, c := range carriers {
-		cs[name] = c.key
+		list[name] = *c.CarrierInfo
 	}
 
-	return cs
+	return list
 }
 
 // GetCarrierNames : 配送業者名のリストを取得
-func GetCarrierNames() []CarrierName {
-	names := []CarrierName{}
+func GetCarrierNames() []Carrier {
+	names := []Carrier{}
 
 	for name := range carriers {
 		names = append(names, name)

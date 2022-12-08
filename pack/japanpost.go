@@ -8,11 +8,15 @@ import (
 )
 
 // CarrierJapanPost : 日本郵便
-const CarrierJapanPost CarrierName = "日本郵便"
+const CarrierJapanPost Carrier = "日本郵便"
 
 func init() {
 	carriers[CarrierJapanPost] = &carrier{
-		key:      "japanpost",
+		CarrierInfo: &CarrierInfo{
+			Key:    "japanpost",
+			Alias:  "j",
+			NameEn: "Japan Post",
+		},
 		tracking: trackingByJapanPost,
 	}
 }

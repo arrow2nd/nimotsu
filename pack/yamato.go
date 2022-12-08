@@ -9,11 +9,15 @@ import (
 )
 
 // CarrierYamato : ヤマト運輸
-const CarrierYamato CarrierName = "ヤマト運輸"
+const CarrierYamato Carrier = "ヤマト運輸"
 
 func init() {
 	carriers[CarrierYamato] = &carrier{
-		key:      "yamato",
+		CarrierInfo: &CarrierInfo{
+			Key:    "yamato",
+			Alias:  "y",
+			NameEn: "Yamato Transport",
+		},
 		tracking: trackingByYamato,
 	}
 }

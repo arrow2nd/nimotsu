@@ -35,7 +35,7 @@ func (c *Cmd) execGetAllCmd(cmd *cobra.Command, args []string) error {
 		item := item
 
 		eg.Go(func() error {
-			pack := pack.New(pack.CarrierName(item.Carrier), item.Number, item.Comment)
+			pack := pack.New(pack.Carrier(item.Carrier), item.Number, item.Comment)
 
 			if err := pack.Tracking(); err != nil {
 				return err

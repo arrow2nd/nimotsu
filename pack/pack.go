@@ -4,7 +4,7 @@ import "errors"
 
 // Package : 荷物の情報
 type Package struct {
-	carrierName    CarrierName
+	carrierName    Carrier
 	trackingNumber string
 	comment        string
 	statuses       []status
@@ -18,7 +18,7 @@ type status struct {
 }
 
 // New : 生成
-func New(name CarrierName, number, comment string) *Package {
+func New(name Carrier, number, comment string) *Package {
 	return &Package{
 		carrierName:    name,
 		trackingNumber: number,

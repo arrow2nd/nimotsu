@@ -6,15 +6,31 @@ import (
 	"github.com/arrow2nd/nimotsu/pack"
 	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
+	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
+// setCarrierFlags : 配送業者のフラグを設定
+func setCarrierFlags(cmd *cobra.Command) {
+	for _, c := range pack.GetCarriers() {
+		cmd.Flags().BoolP(c.Key, c.Alias, false, "tracking "+c.NameEn)
+	}
+}
+
 // getCarrierName : 配送業者IDをフラグから取得
-func getCarrierName(flags *pflag.FlagSet) (pack.CarrierName, error) {
-	for name, key := range pack.GetCarriers() {
-		if exist, _ := flags.GetBool(string(key)); exist {
-			return name, nil
+func getCarrierName(flags *pflag.FlagSet) (pack.Carrier, error) {
+	var carrierName pack.Carrier
+	count := 0
+
+	for name, c := range pack.GetCarriers() {
+		if exist, _ := flags.GetBool(c.Key); exist {
+			count++
+			carrierName = name
 		}
+	}
+
+	if count == 1 {
+		return carrierName, nil
 	}
 
 	// フラグの指定が不正なら選択させる
@@ -41,7 +57,7 @@ func inputComment() (string, error) {
 }
 
 // selectCarrier : 配送業者を選択
-func selectCarrier() (pack.CarrierName, error) {
+func selectCarrier() (pack.Carrier, error) {
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}?",
 		Active:   `{{ ">" | cyan }} {{ . | cyan }}`,
@@ -60,7 +76,7 @@ func selectCarrier() (pack.CarrierName, error) {
 		return "", err
 	}
 
-	return pack.CarrierName(result), nil
+	return pack.Carrier(result), nil
 }
 
 // selectTrackingNumber : リスト内の追跡番号を選択

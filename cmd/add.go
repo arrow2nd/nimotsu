@@ -18,9 +18,7 @@ func (c *Cmd) newAddCmd() *cobra.Command {
 		RunE:    c.execAddCmd,
 	}
 
-	addCmd.Flags().BoolP("japanpost", "j", false, "track Japan Post")
-	addCmd.Flags().BoolP("yamato", "y", false, "track Yamato Transport")
-	addCmd.Flags().BoolP("sagawa", "s", false, "track Sagawa Express")
+	setCarrierFlags(addCmd)
 	addCmd.Flags().StringP("comment", "m", "", "add comment")
 
 	return addCmd

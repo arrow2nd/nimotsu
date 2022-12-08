@@ -7,7 +7,7 @@ import (
 
 func TestPackInfo_CreateViewData(t *testing.T) {
 	type fields struct {
-		carrier  string
+		carrier  Carrier
 		number   string
 		comment  string
 		statuses []status
