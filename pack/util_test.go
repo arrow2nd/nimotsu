@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func Test_fetchBody(t *testing.T) {
+func Test_fetch(t *testing.T) {
 	type args struct {
 		url string
 		val url.Values
@@ -36,11 +36,11 @@ func Test_fetchBody(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := fetch(tt.args.url, tt.args.val)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("fetchBody() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("fetch() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if err == nil && got == nil {
-				t.Errorf("no value for fetchBody")
+				t.Errorf("no value for fetch")
 			}
 		})
 	}

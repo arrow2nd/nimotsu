@@ -106,7 +106,7 @@ func (c *Cmd) selectTrackingNumber() (string, error) {
 	return items[idx].Number, nil
 }
 
-// showSuccessMessage 完了メッセージ
+// showSuccessMessage : 完了メッセージ
 func showSuccessMessage(text string) {
 	fmt.Printf("%s %s\n", color.GreenString("✔"), text)
 }
