@@ -8,24 +8,33 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const (
-	// YamatoTransport 配送業者名
-	YamatoTransport = "ヤマト運輸"
-	ymUrl           = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
-)
+// CarrierYamato : ヤマト運輸
+const CarrierYamato Carrier = "ヤマト運輸"
 
-// trackByYamato ヤマト運輸を追跡
-func (p *PackInfo) trackByYamato() error {
+func init() {
+	carriers[CarrierYamato] = &carrier{
+		CarrierInfo: &CarrierInfo{
+			Key:    "yamato",
+			Alias:  "y",
+			NameEn: "Yamato Transport",
+		},
+		tracking: trackingByYamato,
+	}
+}
+
+func trackingByYamato(trackingNumber string) ([]status, error) {
+	const trackingURL = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
+
 	val := url.Values{}
 	val.Add("number00", "1") // 取得件数？
-	val.Add("number01", p.number)
+	val.Add("number01", trackingNumber)
 
-	doc, err := fetchBody(ymUrl, val)
+	doc, err := fetch(trackingURL, val)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	var results []status
+	results := []status{}
 
 	doc.Find("div .tracking-invoice-block-detail li").Each(func(i int, s *goquery.Selection) {
 		item := s.Find("div .item").Text()
@@ -34,7 +43,7 @@ func (p *PackInfo) trackByYamato() error {
 
 		// 日付の書式を変更
 		pt, _ := time.Parse("01月02日 15:04", date)
-		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format("01/02 15:04"))
+		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format(dateFormat))
 
 		results = append(results, status{
 			date:    date,
@@ -44,9 +53,8 @@ func (p *PackInfo) trackByYamato() error {
 	})
 
 	if len(results) == 0 {
-		return fmt.Errorf("couldn't find the package (" + p.number + ")")
+		return nil, createNotFoundError(trackingNumber)
 	}
 
-	p.statuses = results
-	return nil
+	return results, nil
 }

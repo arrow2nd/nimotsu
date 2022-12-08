@@ -10,8 +10,8 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// fetchBody Bodyを取得
-func fetchBody(url string, val url.Values) (*goquery.Document, error) {
+// fetch : Webサイトを取得
+func fetch(url string, val url.Values) (*goquery.Document, error) {
 	res, err := http.PostForm(url, val)
 	if err != nil {
 		return nil, err
@@ -26,9 +26,14 @@ func fetchBody(url string, val url.Values) (*goquery.Document, error) {
 	return goquery.NewDocumentFromReader(res.Body)
 }
 
-// removeConsecutiveSpace 連続したスペースを削除
+// removeConsecutiveSpace : 連続したスペースを削除
 func removeConsecutiveSpace(str string) string {
 	str = strings.TrimSpace(str)
 	rep := regexp.MustCompile(`[\s　]+`)
 	return rep.ReplaceAllString(str, " ")
+}
+
+// createNotFoundError : 見つからなかったときのエラーを作成
+func createNotFoundError(n string) error {
+	return fmt.Errorf("couldn't find the package (%s)", n)
 }

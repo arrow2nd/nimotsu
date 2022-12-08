@@ -8,25 +8,34 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const (
-	// SagawaExpress 配送業者名
-	SagawaExpress = "佐川急便"
-	sgUrl         = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
-	sgFieldMax    = 3
-)
+// CarrierSagawa : 佐川急便
+const CarrierSagawa Carrier = "佐川急便"
 
-// trackBySagawa 佐川急便を追跡
-func (p *PackInfo) trackBySagawa() error {
+func init() {
+	carriers[CarrierSagawa] = &carrier{
+		CarrierInfo: &CarrierInfo{
+			Key:    "sagawa",
+			Alias:  "s",
+			NameEn: "Sagawa Express",
+		},
+		tracking: trackingBySagawa,
+	}
+}
+
+func trackingBySagawa(trackingNumber string) ([]status, error) {
+	const trackingURL = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
+
 	val := url.Values{}
-	val.Add("okurijoNo", p.number)
+	val.Add("okurijoNo", trackingNumber)
 
-	doc, err := fetchBody(sgUrl, val)
+	doc, err := fetch(trackingURL, val)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	var results []status
 
+	// TODO: Eqで2個目の要素をもらってインデントを減らしたい
 	doc.Find("table.table_basic.table_okurijo_detail2").Each(func(i int, s *goquery.Selection) {
 		// 1ループ目は荷物情報なので読み飛ばす
 		if i == 0 {
@@ -39,7 +48,8 @@ func (p *PackInfo) trackBySagawa() error {
 				return
 			}
 
-			var field [sgFieldMax]string
+			var field []string
+			// TODO: Map()を使う形にしたい
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
@@ -53,9 +63,8 @@ func (p *PackInfo) trackBySagawa() error {
 	})
 
 	if len(results) == 0 {
-		return fmt.Errorf("couldn't find the package (" + p.number + ")")
+		return nil, createNotFoundError(trackingNumber)
 	}
 
-	p.statuses = results
-	return nil
+	return results, nil
 }

@@ -5,13 +5,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Cmd 本体
+// Cmd : 本体
 type Cmd struct {
 	root *cobra.Command
 	list *list.List
 }
 
-// New 生成
+// New : 生成
 func New(l *list.List) *Cmd {
 	cmd := &Cmd{
 		list: l,
@@ -35,7 +35,7 @@ func New(l *list.List) *Cmd {
 	return cmd
 }
 
-// Execute 実行
+// Execute : 実行
 func (c *Cmd) Execute() {
 	c.root.Execute()
 }

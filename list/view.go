@@ -21,7 +21,7 @@ func (l *List) createTableData() [][]string {
 	return data
 }
 
-// View リストを表示する
+// View : リストを表示する
 func (l *List) View() error {
 	data := l.createTableData()
 	if len(data) == 0 {

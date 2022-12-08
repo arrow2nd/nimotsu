@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- OCSに対応
+
 ## [1.2.1] - 2022-07-06
 
 ### Added

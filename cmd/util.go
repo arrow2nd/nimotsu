@@ -6,36 +6,38 @@ import (
 	"github.com/arrow2nd/nimotsu/pack"
 	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
+	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
 
-// getCarrierName 配送業者名をフラグから取得
-func getCarrierName(flags *pflag.FlagSet) (string, error) {
-	enabledFlagCount := 0
-	carrier := ""
+// setCarrierFlags : 配送業者のフラグを設定
+func setCarrierFlags(cmd *cobra.Command) {
+	for _, c := range pack.GetCarriers() {
+		cmd.Flags().BoolP(c.Key, c.Alias, false, "tracking "+c.NameEn)
+	}
+}
 
-	if jp, _ := flags.GetBool("japanpost"); jp {
-		enabledFlagCount++
-		carrier = pack.JapanPost
+// getCarrierName : 配送業者IDをフラグから取得
+func getCarrierName(flags *pflag.FlagSet) (pack.Carrier, error) {
+	var carrierName pack.Carrier
+	count := 0
+
+	for name, c := range pack.GetCarriers() {
+		if exist, _ := flags.GetBool(c.Key); exist {
+			count++
+			carrierName = name
+		}
 	}
-	if ym, _ := flags.GetBool("yamato"); ym {
-		enabledFlagCount++
-		carrier = pack.YamatoTransport
-	}
-	if sg, _ := flags.GetBool("sagawa"); sg {
-		enabledFlagCount++
-		carrier = pack.SagawaExpress
+
+	if count == 1 {
+		return carrierName, nil
 	}
 
 	// フラグの指定が不正なら選択させる
-	if enabledFlagCount != 1 {
-		return selectCarrier()
-	}
-
-	return carrier, nil
+	return selectCarrier()
 }
 
-// inputComment コメントを入力
+// inputComment : コメントを入力
 func inputComment() (string, error) {
 	prompt := promptui.Prompt{
 		Label: "Comment",
@@ -54,8 +56,8 @@ func inputComment() (string, error) {
 	return result, nil
 }
 
-// selectCarrier 配送業者を選択
-func selectCarrier() (string, error) {
+// selectCarrier : 配送業者を選択
+func selectCarrier() (pack.Carrier, error) {
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}?",
 		Active:   `{{ ">" | cyan }} {{ . | cyan }}`,
@@ -65,7 +67,7 @@ func selectCarrier() (string, error) {
 
 	prompt := promptui.Select{
 		Label:     "Carrier",
-		Items:     []string{pack.JapanPost, pack.YamatoTransport, pack.SagawaExpress},
+		Items:     pack.GetCarrierNames(),
 		Templates: templates,
 	}
 
@@ -74,10 +76,10 @@ func selectCarrier() (string, error) {
 		return "", err
 	}
 
-	return result, nil
+	return pack.Carrier(result), nil
 }
 
-// selectTrackingNumber リスト内の追跡番号を選択
+// selectTrackingNumber : リスト内の追跡番号を選択
 func (c *Cmd) selectTrackingNumber() (string, error) {
 	items := c.list.Get()
 
@@ -104,7 +106,7 @@ func (c *Cmd) selectTrackingNumber() (string, error) {
 	return items[idx].Number, nil
 }
 
-// showSuccessMessage 完了メッセージ
+// showSuccessMessage : 完了メッセージ
 func showSuccessMessage(text string) {
 	fmt.Printf("%s %s\n", color.GreenString("✔"), text)
 }

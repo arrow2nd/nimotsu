@@ -1,45 +1,45 @@
 package pack
 
-import "fmt"
+import "errors"
 
-// PackInfo 荷物情報
-type PackInfo struct {
-	carrier  string
-	number   string
-	comment  string
-	statuses []status
+const dateFormat = "2006/01/02 15:04"
+
+// Package : 荷物の情報
+type Package struct {
+	carrierName    Carrier
+	trackingNumber string
+	comment        string
+	statuses       []status
 }
 
-// status 状態
+// status : 配送状態
 type status struct {
 	date    string
 	message string
 	office  string
 }
 
-// New 生成
-func New(carrier, tNumber, comment string) *PackInfo {
-	return &PackInfo{
-		carrier: carrier,
-		number:  tNumber,
-		comment: comment,
+// New : 生成
+func New(name Carrier, number, comment string) *Package {
+	return &Package{
+		carrierName:    name,
+		trackingNumber: number,
+		comment:        comment,
 	}
 }
 
-// Tracking 追跡
-func (p *PackInfo) Tracking() error {
-	var err error
-
-	switch p.carrier {
-	case JapanPost:
-		err = p.trackByJapanPost()
-	case YamatoTransport:
-		err = p.trackByYamato()
-	case SagawaExpress:
-		err = p.trackBySagawa()
-	default:
-		return fmt.Errorf("no carrier specified")
+// Tracking : 追跡
+func (p *Package) Tracking() error {
+	c, ok := carriers[p.carrierName]
+	if !ok {
+		return errors.New("no carrier specified")
 	}
 
-	return err
+	statuses, err := c.tracking(p.trackingNumber)
+	if err != nil {
+		return err
+	}
+
+	p.statuses = statuses
+	return nil
 }

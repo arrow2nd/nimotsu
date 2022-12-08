@@ -12,9 +12,10 @@
 
 ## 対応している配送業者
 
-- 日本郵便
-- ヤマト運輸
-- 佐川急便
+- [日本郵便](https://www.post.japanpost.jp/index.html)
+- [ヤマト運輸](https://www.kuronekoyamato.co.jp/)
+- [佐川急便](https://www.sagawa-exp.co.jp/)
+- [OCS](https://www.ocs.co.jp/)
 
 ## インストール
 
@@ -40,7 +41,8 @@ go install github.com/arrow2nd/nimotsu@latest
 
 ### それ以外
 
-[Releases](https://github.com/arrow2nd/nimotsu/releases) からお使いの環境にあったファイルをダウンロードしてください。
+[Releases](https://github.com/arrow2nd/nimotsu/releases)
+からお使いの環境にあったファイルをダウンロードしてください。
 
 ## コマンド
 
@@ -132,7 +134,7 @@ Comment: iPad
 
 ### list
 
-リスト内の荷物を表示します
+リスト内の荷物を表示します。
 
 ```txt
 $ nimotsu list

@@ -7,7 +7,7 @@ import (
 
 func TestPackInfo_CreateViewData(t *testing.T) {
 	type fields struct {
-		carrier  string
+		carrier  Carrier
 		number   string
 		comment  string
 		statuses []status
@@ -43,7 +43,7 @@ func TestPackInfo_CreateViewData(t *testing.T) {
 
 func TestPackInfo_View(t *testing.T) {
 	t.Run("データが無い時にエラーを返すか", func(t *testing.T) {
-		p := &PackInfo{}
+		p := &Package{}
 		if err := p.View(); err == nil {
 			t.Errorf("PackInfo.View() error = %v, wantErr %v", err, true)
 		}

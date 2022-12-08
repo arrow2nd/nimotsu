@@ -15,21 +15,19 @@ func (c *Cmd) newGetCmd() *cobra.Command {
 		RunE:    c.execGetCmd,
 	}
 
-	getCmd.Flags().BoolP("japanpost", "j", false, "track Japan Post")
-	getCmd.Flags().BoolP("yamato", "y", false, "track Yamato Transport")
-	getCmd.Flags().BoolP("sagawa", "s", false, "track Sagawa Express")
+	setCarrierFlags(getCmd)
 	getCmd.AddCommand(c.newGetAllCmd())
 
 	return getCmd
 }
 
 func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
-	carrier, err := getCarrierName(cmd.Flags())
+	carrierName, err := getCarrierName(cmd.Flags())
 	if err != nil {
 		return nil
 	}
 
-	pack := pack.New(carrier, args[0], noCommentMessage)
+	pack := pack.New(carrierName, args[0], noCommentMessage)
 
 	if err := pack.Tracking(); err != nil {
 		return err

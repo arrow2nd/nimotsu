@@ -7,15 +7,15 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-// CreateViewData 表データを作成
-func (p *PackInfo) CreateViewData() [][]string {
+// CreateViewData : 表データを作成
+func (p *Package) CreateViewData() [][]string {
 	data := [][]string{}
 
 	for _, status := range p.statuses {
 		data = append(data, []string{
-			p.number,
+			p.trackingNumber,
 			p.comment,
-			p.carrier,
+			string(p.carrierName),
 			status.message,
 			status.date,
 			status.office,
@@ -25,8 +25,8 @@ func (p *PackInfo) CreateViewData() [][]string {
 	return data
 }
 
-// View 追跡状況を表示
-func (p *PackInfo) View() error {
+// View : 追跡状況を表示
+func (p *Package) View() error {
 	data := p.CreateViewData()
 	if len(data) == 0 {
 		return fmt.Errorf("tracking number or shipping carrier is incorrect")
@@ -36,7 +36,7 @@ func (p *PackInfo) View() error {
 	return nil
 }
 
-// ShowTable テーブルを表示
+// ShowTable : テーブルを表示
 func ShowTable(data *[][]string) {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"追跡番号", "コメント", "配送業者", "配達状況", "日時", "営業所"})
