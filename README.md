@@ -1,6 +1,6 @@
-# ![nimotsu](https://user-images.githubusercontent.com/44780846/143875126-623331d8-dc27-4145-95c7-5d26968d63bf.png)
+![nimotsu](https://user-images.githubusercontent.com/44780846/206602800-ba14f2e4-93ce-4472-8f66-6887df690a3f.png)
 
-荷物の配達状況を追跡する CLI ツール
+**nimotsu**: 📦 荷物の配達状況を追跡するCLIツール
 
 [![test](https://github.com/arrow2nd/nimotsu/actions/workflows/test.yml/badge.svg)](https://github.com/arrow2nd/nimotsu/actions/workflows/test.yml)
 [![release](https://github.com/arrow2nd/nimotsu/actions/workflows/release.yml/badge.svg)](https://github.com/arrow2nd/nimotsu/actions/workflows/release.yml)
