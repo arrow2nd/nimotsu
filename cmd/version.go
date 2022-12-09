@@ -6,6 +6,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var version = "develop"
+
 func (c *Cmd) newVersionCmd() *cobra.Command {
 	listCmd := &cobra.Command{
 		Use:     "version",

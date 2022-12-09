@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const noCommentMessage = "なし"
+
 // Cmd : 本体
 type Cmd struct {
 	root *cobra.Command
