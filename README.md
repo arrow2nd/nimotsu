@@ -1,4 +1,4 @@
-![nimotsu](https://user-images.githubusercontent.com/44780846/206602800-ba14f2e4-93ce-4472-8f66-6887df690a3f.png)
+![logo](https://user-images.githubusercontent.com/44780846/206611013-34fda129-ca23-4118-95b0-0ae57e0d40cd.png)
 
 **nimotsu**: 📦 荷物の配達状況を追跡するCLIツール
 
