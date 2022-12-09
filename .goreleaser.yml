@@ -9,6 +9,9 @@ builds:
       - linux
       - windows
       - darwin
+    ldflags:
+      - -s -w
+      - -X github.com/arrow2nd/nimotsu/cmd.version={{.Version}}
 
 archives:
   - replacements:
@@ -29,7 +32,7 @@ brews:
     url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     folder: Formula
     homepage: "https://arrow2nd.com/works/nimotsu"
-    description: "CLI tool to track packages in Japan 📦"
+    description: "CLI tool to tracking packages in Japan 📦"
     license: "MIT"
     test: |
       system "#{bin}/nimotsu ver"
@@ -43,7 +46,7 @@ scoop:
     token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
   url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
   homepage: "https://arrow2nd.com/works/nimotsu"
-  description: "CLI tool to track packages in Japan 📦"
+  description: "CLI tool to tracking packages in Japan 📦"
   license: "MIT"
 
 checksum:

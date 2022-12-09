@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 
+## [1.3.0] - 2022-12-09
+
 ### Added
 
 - OCSに対応
+
+### Changed
+
+- バージョンをビルド済みバイナリにのみ反映するよう変更
 
 ## [1.2.1] - 2022-07-06
 
@@ -44,6 +50,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/arrow2nd/nimotsu/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/arrow2nd/nimotsu/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/arrow2nd/nimotsu/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/arrow2nd/nimotsu/compare/v1.0.0...v1.1.0
