@@ -22,6 +22,12 @@ func (l *List) Save() error {
 // Load ファイルから読込
 func (l *List) Load() error {
 	path := getSaveFilePath()
+	if isNotExist(path) {
+		if err := createFile(path); err != nil {
+			return err
+		}
+	}
+
 	buf, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
@@ -37,4 +43,17 @@ func getSaveFilePath() string {
 	}
 
 	return filepath.Join(homeDir, filename)
+}
+
+func isNotExist(path string) bool {
+	_, err := os.Stat(path)
+	return os.IsNotExist(err)
+}
+
+func createFile(path string) error {
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	return f.Close()
 }
