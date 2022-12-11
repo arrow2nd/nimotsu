@@ -19,8 +19,8 @@ func New(l *list.List) *Cmd {
 		list: l,
 		root: &cobra.Command{
 			Use:   "nimotsu",
-			Short: "CLI tool to track packages 📦",
-			Long:  "CLI tool to track packages by tracking number 📦",
+			Short: "📦 CLI tool to tracking packages",
+			Long:  "📦 CLI tool to tracking packages in japan",
 		},
 	}
 
@@ -38,6 +38,6 @@ func New(l *list.List) *Cmd {
 }
 
 // Execute : 実行
-func (c *Cmd) Execute() {
-	c.root.Execute()
+func (c *Cmd) Execute() error {
+	return c.root.Execute()
 }

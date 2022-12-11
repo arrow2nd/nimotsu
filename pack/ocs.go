@@ -45,7 +45,7 @@ func trackingByOCS(trackingNumber string) ([]status, error) {
 		})
 
 		pt, _ := time.Parse("Mon 02Jan2006 15:04", td[1])
-		date := pt.Format(dateFormat)
+		date := pt.Format("2006/01/02 15:04")
 
 		message := td[0]
 		if td[3] != "" {

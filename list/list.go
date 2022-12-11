@@ -4,10 +4,9 @@ import (
 	"fmt"
 )
 
-const filename = ".nimotsu"
-
 // List : 荷物リスト
 type List struct {
+	dir   string
 	items []Item
 }
 

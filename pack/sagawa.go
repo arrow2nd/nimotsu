@@ -1,9 +1,7 @@
 package pack
 
 import (
-	"fmt"
 	"net/url"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -33,7 +31,7 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 		return nil, err
 	}
 
-	var results []status
+	results := []status{}
 
 	// TODO: Eqで2個目の要素をもらってインデントを減らしたい
 	doc.Find("table.table_basic.table_okurijo_detail2").Each(func(i int, s *goquery.Selection) {
@@ -48,14 +46,14 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 				return
 			}
 
-			var field []string
+			field := []string{}
 			// TODO: Map()を使う形にしたい
 			s.Find("td").Each(func(i int, s *goquery.Selection) {
 				field[i] = removeConsecutiveSpace(s.Text())
 			})
 
 			results = append(results, status{
-				date:    fmt.Sprintf("%d/%s", time.Now().Year(), field[1]),
+				date:    field[1],
 				message: field[0][3:], // 先頭の文字を削除
 				office:  field[2],
 			})
