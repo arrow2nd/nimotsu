@@ -55,7 +55,7 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 			})
 
 			results = append(results, status{
-				date:    fmt.Sprintf("%d/%s", time.Now().Year(), field[1]),
+				date:    field[1],
 				message: field[0][3:], // 先頭の文字を削除
 				office:  field[2],
 			})

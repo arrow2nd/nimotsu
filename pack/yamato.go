@@ -1,7 +1,6 @@
 package pack
 
 import (
-	"fmt"
 	"net/url"
 	"time"
 
@@ -43,7 +42,7 @@ func trackingByYamato(trackingNumber string) ([]status, error) {
 
 		// 日付の書式を変更
 		pt, _ := time.Parse("01月02日 15:04", date)
-		date = fmt.Sprintf("%d/%s", time.Now().Year(), pt.Format(dateFormat))
+		date = pt.Format("01/02 15:04")
 
 		results = append(results, status{
 			date:    date,
