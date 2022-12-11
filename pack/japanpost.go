@@ -45,7 +45,7 @@ func trackingByJapanPost(trackingNumber string) ([]status, error) {
 			results = append(results, status{
 				date:    field[0],
 				message: field[1],
-				office:  field[4] + " " + field[3],
+				office:  removeConsecutiveSpace(field[4] + " " + field[3]),
 			})
 		}
 
