@@ -38,6 +38,6 @@ func New(l *list.List) *Cmd {
 }
 
 // Execute : 実行
-func (c *Cmd) Execute() {
-	c.root.Execute()
+func (c *Cmd) Execute() error {
+	return c.root.Execute()
 }

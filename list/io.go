@@ -1,12 +1,18 @@
 package list
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
 	"gopkg.in/yaml.v2"
 )
+
+const fileName = ".nimotsu"
+
+// SetDir : ディレクトリを設定
+func (l *List) SetDir(dir string) {
+	l.dir = dir
+}
 
 // Save : ファイルへ保存
 func (l *List) Save() error {
@@ -15,34 +21,25 @@ func (l *List) Save() error {
 		return err
 	}
 
-	path := getSaveFilePath()
-	return ioutil.WriteFile(path, buf, os.ModePerm)
+	path := filepath.Join(l.dir, fileName)
+	return os.WriteFile(path, buf, os.ModePerm)
 }
 
 // Load : ファイルから読込
 func (l *List) Load() error {
-	path := getSaveFilePath()
+	path := filepath.Join(l.dir, fileName)
 	if isNotExist(path) {
 		if err := createFile(path); err != nil {
 			return err
 		}
 	}
 
-	buf, err := ioutil.ReadFile(path)
+	buf, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}
 
 	return yaml.Unmarshal(buf, &l.items)
-}
-
-func getSaveFilePath() string {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		panic(err)
-	}
-
-	return filepath.Join(homeDir, filename)
 }
 
 func isNotExist(path string) bool {
