@@ -8,7 +8,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Save ファイルへ保存
+// Save : ファイルへ保存
 func (l *List) Save() error {
 	buf, err := yaml.Marshal(l.items)
 	if err != nil {
@@ -19,7 +19,7 @@ func (l *List) Save() error {
 	return ioutil.WriteFile(path, buf, os.ModePerm)
 }
 
-// Load ファイルから読込
+// Load : ファイルから読込
 func (l *List) Load() error {
 	path := getSaveFilePath()
 	if isNotExist(path) {

@@ -36,10 +36,8 @@ func trackingByJapanPost(trackingNumber string) ([]status, error) {
 		return nil, err
 	}
 
-	var (
-		results []status
-		field   [fieldMax]string
-	)
+	results := []status{}
+	field := [fieldMax]string{}
 
 	doc.Find("[summary='履歴情報'] td").Each(func(i int, s *goquery.Selection) {
 		// 配達状況を追加

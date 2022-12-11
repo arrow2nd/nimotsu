@@ -1,7 +1,7 @@
 package list
 
 import (
-	"fmt"
+	"errors"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
@@ -25,7 +25,7 @@ func (l *List) createTableData() [][]string {
 func (l *List) View() error {
 	data := l.createTableData()
 	if len(data) == 0 {
-		return fmt.Errorf("list is empty")
+		return errors.New("list is empty")
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
