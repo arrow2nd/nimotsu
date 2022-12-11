@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [1.3.1] - 2022-12-11
+
+### Fixed
+
+- `.nimotsu`がない場合に自動で作成されない
+- 不要なスペースが含まれる場合がある
+
+### Changed
+
+- 一部配送業者の日付フォーマットを変更
+
 ## [1.3.0] - 2022-12-09
 
 ### Added
@@ -50,7 +61,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/arrow2nd/nimotsu/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/arrow2nd/nimotsu/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/arrow2nd/nimotsu/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/arrow2nd/nimotsu/compare/v1.1.0...v1.2.0
