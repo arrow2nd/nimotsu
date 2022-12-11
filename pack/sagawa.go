@@ -1,9 +1,7 @@
 package pack
 
 import (
-	"fmt"
 	"net/url"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
