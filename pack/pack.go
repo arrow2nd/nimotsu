@@ -32,8 +32,3 @@ func (p *Package) Tracking() error {
 	p.statuses = statuses
 	return nil
 }
-
-// GetTrackingURL : 追跡ページのURLを取得
-func (p *Package) GetTrackingURL() (string, error) {
-	return "", nil
-}

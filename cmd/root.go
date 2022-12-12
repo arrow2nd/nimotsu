@@ -31,7 +31,6 @@ func New(l *list.List) *Cmd {
 		cmd.newRemoveCmd(),
 		cmd.newEditCmd(),
 		cmd.newListCmd(),
-		cmd.newBrowseCmd(),
 		cmd.newVersionCmd(),
 	)
 

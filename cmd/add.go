@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/arrow2nd/nimotsu/pack"
@@ -34,7 +35,7 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 
 	// リストに登録済みかチェック
 	if c.list.Exists(number) {
-		return fmt.Errorf("this tracking number exists in the list")
+		return errors.New("this tracking number exists in the list")
 	}
 
 	pkg := &pack.Package{
