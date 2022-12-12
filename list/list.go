@@ -84,3 +84,8 @@ func (l *List) ChangeComment(number, comment string) error {
 
 	return fmt.Errorf("no tracking number found")
 }
+
+// GetTrackingURL : 追跡ページのURLを取得
+func (l *List) GetTrackingURL(number string) (string, error) {
+	return "", nil
+}
