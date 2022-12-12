@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.2] - 2022-12-12
+
+### Fixed
+
+- エラーが全てpanicで処理される
+
 ## [1.3.1] - 2022-12-11
 
 ### Fixed
@@ -61,7 +67,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/arrow2nd/nimotsu/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/arrow2nd/nimotsu/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/arrow2nd/nimotsu/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/arrow2nd/nimotsu/compare/v1.2.0...v1.2.1
