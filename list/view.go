@@ -10,11 +10,11 @@ import (
 func (l *List) createTableData() [][]string {
 	data := [][]string{}
 
-	for _, item := range l.items {
+	for _, pkg := range l.packages {
 		data = append(data, []string{
-			item.Number,
-			item.Comment,
-			item.Carrier,
+			pkg.Number,
+			pkg.Comment,
+			string(pkg.Carrier),
 		})
 	}
 

@@ -26,12 +26,12 @@ func (c *Cmd) execBrowseCmd(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("list is empty")
 	}
 
-	number, err := c.selectTrackingNumber()
+	pkg, err := c.selectTrackingNumber()
 	if err != nil {
 		return nil
 	}
 
-	url, err := c.list.GetTrackingURL(number)
+	url, err := pkg.GetTrackingURL()
 	if err != nil {
 		return err
 	}

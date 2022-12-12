@@ -31,18 +31,16 @@ func (c *Cmd) execGetAllCmd(cmd *cobra.Command, args []string) error {
 	eg := errgroup.Group{}
 	mutex := sync.Mutex{}
 
-	for _, item := range c.list.Get() {
-		item := item
+	for _, pkg := range c.list.Get() {
+		pkg := pkg
 
 		eg.Go(func() error {
-			pack := pack.New(pack.Carrier(item.Carrier), item.Number, item.Comment)
-
-			if err := pack.Tracking(); err != nil {
+			if err := pkg.Tracking(); err != nil {
 				return err
 			}
 
 			mutex.Lock()
-			results = append(results, pack.CreateViewData()...)
+			results = append(results, pkg.CreateViewData()...)
 			mutex.Unlock()
 
 			return nil

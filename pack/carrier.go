@@ -2,8 +2,8 @@ package pack
 
 import "sort"
 
-// Carrier : 配送業者名
-type Carrier string
+// CarrierName : 配送業者名
+type CarrierName string
 
 // CarrierInfo : 配送業者の情報
 type CarrierInfo struct {
@@ -17,11 +17,11 @@ type carrier struct {
 	tracking func(string) ([]status, error)
 }
 
-var carriers = map[Carrier]*carrier{}
+var carriers = map[CarrierName]*carrier{}
 
 // GetCarriers : 配送業者のリストを取得
-func GetCarriers() map[Carrier]CarrierInfo {
-	list := map[Carrier]CarrierInfo{}
+func GetCarriers() map[CarrierName]CarrierInfo {
+	list := map[CarrierName]CarrierInfo{}
 
 	for name, c := range carriers {
 		list[name] = *c.CarrierInfo
@@ -31,8 +31,8 @@ func GetCarriers() map[Carrier]CarrierInfo {
 }
 
 // GetCarrierNames : 配送業者名のリストを取得
-func GetCarrierNames() []Carrier {
-	names := []Carrier{}
+func GetCarrierNames() []CarrierName {
+	names := []CarrierName{}
 
 	for name := range carriers {
 		names = append(names, name)

@@ -27,11 +27,15 @@ func (c *Cmd) execGetCmd(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 
-	pack := pack.New(carrierName, args[0], noCommentMessage)
+	pkg := pack.Package{
+		Carrier: carrierName,
+		Number:  args[0],
+		Comment: noCommentMessage,
+	}
 
-	if err := pack.Tracking(); err != nil {
+	if err := pkg.Tracking(); err != nil {
 		return err
 	}
 
-	return pack.View()
+	return pkg.View()
 }

@@ -3,12 +3,14 @@ package list
 import (
 	"reflect"
 	"testing"
+
+	"github.com/arrow2nd/nimotsu/pack"
 )
 
 func TestList_Get(t *testing.T) {
 	t.Run("取得できるか", func(t *testing.T) {
 		l := New()
-		want := []Item{
+		want := []pack.Package{
 			{
 				Carrier: "A",
 				Number:  "0123456789",
@@ -20,7 +22,7 @@ func TestList_Get(t *testing.T) {
 				Comment: "testB",
 			},
 		}
-		l.items = want
+		l.packages = want
 
 		if got := l.Get(); !reflect.DeepEqual(got, want) {
 			t.Errorf("List.Get() = %v, want %v", got, want)
@@ -31,14 +33,14 @@ func TestList_Get(t *testing.T) {
 func TestList_Clear(t *testing.T) {
 	t.Run("全て削除できるか", func(t *testing.T) {
 		l := New()
-		l.items = []Item{{
+		l.packages = []pack.Package{{
 			Carrier: "test",
 			Number:  "0123456789",
 			Comment: "test!",
 		}}
 		l.Clear()
 
-		want := []Item{}
+		want := []pack.Package{}
 
 		if got := l.Get(); !reflect.DeepEqual(got, want) {
 			t.Errorf("List.Get() = %v, want %v", got, want)
@@ -49,7 +51,7 @@ func TestList_Clear(t *testing.T) {
 func TestList_AddItem(t *testing.T) {
 	t.Run("追加できるか", func(t *testing.T) {
 		l := New()
-		want := []Item{
+		want := []pack.Package{
 			{
 				Carrier: "C",
 				Number:  "12345",
@@ -61,7 +63,7 @@ func TestList_AddItem(t *testing.T) {
 				Comment: "testD",
 			},
 		}
-		l.items = want[:1]
+		l.packages = want[:1]
 		l.AddItem(&want[1])
 
 		if got := l.Get(); !reflect.DeepEqual(got, want) {
@@ -73,13 +75,13 @@ func TestList_AddItem(t *testing.T) {
 func TestList_RemoveItem(t *testing.T) {
 	tests := []struct {
 		name    string
-		items   []Item
+		items   []pack.Package
 		arg     string
 		wantErr bool
 	}{
 		{
 			name: "削除できるか",
-			items: []Item{
+			items: []pack.Package{
 				{
 					Carrier: "A",
 					Number:  "012345",
@@ -96,7 +98,7 @@ func TestList_RemoveItem(t *testing.T) {
 		},
 		{
 			name: "指定された番号が存在しない場合エラーが返るか",
-			items: []Item{{
+			items: []pack.Package{{
 				Carrier: "B",
 				Number:  "678901",
 				Comment: "testB",
@@ -106,7 +108,7 @@ func TestList_RemoveItem(t *testing.T) {
 		},
 		{
 			name:    "データが存在しない場合エラーが返るか",
-			items:   []Item{},
+			items:   []pack.Package{},
 			arg:     "123456",
 			wantErr: true,
 		},
@@ -114,7 +116,7 @@ func TestList_RemoveItem(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			l := New()
-			l.items = tt.items
+			l.packages = tt.items
 			if err := l.RemoveItem(tt.arg); (err != nil) != tt.wantErr {
 				t.Errorf("List.RemoveItem() error = %v, wantErr %v", err, tt.wantErr)
 			}
@@ -123,7 +125,7 @@ func TestList_RemoveItem(t *testing.T) {
 }
 
 func TestList_Exists(t *testing.T) {
-	testItems := []Item{
+	testItems := []pack.Package{
 		{
 			Carrier: "A",
 			Number:  "123456",
@@ -137,7 +139,7 @@ func TestList_Exists(t *testing.T) {
 	}
 	tests := []struct {
 		name  string
-		items []Item
+		items []pack.Package
 		arg   string
 		want  bool
 	}{
@@ -155,14 +157,14 @@ func TestList_Exists(t *testing.T) {
 		},
 		{
 			name:  "データが存在しない",
-			items: []Item{},
+			items: []pack.Package{},
 			arg:   "123456",
 			want:  false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &List{items: tt.items}
+			l := &List{packages: tt.items}
 			if got := l.Exists(tt.arg); got != tt.want {
 				t.Errorf("List.Exists() = %v, want %v", got, tt.want)
 			}
@@ -171,7 +173,7 @@ func TestList_Exists(t *testing.T) {
 }
 
 func TestList_ChangeComment(t *testing.T) {
-	testItems := []Item{{
+	testItems := []pack.Package{{
 		Carrier: "A",
 		Number:  "123456",
 		Comment: "testA",
@@ -182,7 +184,7 @@ func TestList_ChangeComment(t *testing.T) {
 	}
 	tests := []struct {
 		name    string
-		items   []Item
+		items   []pack.Package
 		args    args
 		want    string
 		wantErr bool
@@ -210,12 +212,12 @@ func TestList_ChangeComment(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &List{items: tt.items}
+			l := &List{packages: tt.items}
 			if err := l.ChangeComment(tt.args.number, tt.args.comment); (err != nil) != tt.wantErr {
 				t.Errorf("List.ChangeComment() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if cmt := l.items[0].Comment; cmt != tt.want {
+			if cmt := l.packages[0].Comment; cmt != tt.want {
 				t.Errorf("Comment = %s, want %s", cmt, tt.want)
 			}
 		})

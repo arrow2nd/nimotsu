@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/arrow2nd/nimotsu/pack"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -14,7 +15,7 @@ func TestSave(t *testing.T) {
 	d := t.TempDir()
 	ls.SetDir(d)
 
-	ls.AddItem(&Item{
+	ls.AddItem(&pack.Package{
 		Carrier: "Test Express",
 		Number:  "0123456",
 		Comment: "test",
@@ -50,10 +51,10 @@ func TestLoad(t *testing.T) {
 		err := ls.Load()
 		assert.NoError(t, err)
 
-		assert.Len(t, ls.items, 1)
-		assert.Equal(t, "Test Express", ls.items[0].Carrier)
-		assert.Equal(t, "0123456", ls.items[0].Number)
-		assert.Equal(t, "test", ls.items[0].Comment)
+		assert.Len(t, ls.packages, 1)
+		assert.Equal(t, pack.CarrierName("Test Express"), ls.packages[0].Carrier)
+		assert.Equal(t, "0123456", ls.packages[0].Number)
+		assert.Equal(t, "test", ls.packages[0].Comment)
 	})
 
 	t.Run("ファイルがない場合に作成されるか", func(t *testing.T) {

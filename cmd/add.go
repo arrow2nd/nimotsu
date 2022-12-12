@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/arrow2nd/nimotsu/list"
 	"github.com/arrow2nd/nimotsu/pack"
 	"github.com/spf13/cobra"
 )
@@ -38,11 +37,15 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("this tracking number exists in the list")
 	}
 
-	pack := pack.New(carrierName, number, "")
+	pkg := &pack.Package{
+		Carrier: carrierName,
+		Number:  number,
+		Comment: "",
+	}
 
 	// 追跡番号が正しいかチェック
-	if err := pack.Tracking(); err != nil {
-		return fmt.Errorf("this tracking number is wrong")
+	if err := pkg.Tracking(); err != nil {
+		return fmt.Errorf("this tracking number is wrong: %w", err)
 	}
 
 	comment, _ := cmd.Flags().GetString("comment")
@@ -51,17 +54,13 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 	if comment == "" {
 		result, err := inputComment()
 		if err != nil {
-			return nil
+			return err
 		}
 
 		comment = result
 	}
 
-	c.list.AddItem(&list.Item{
-		Carrier: string(carrierName),
-		Number:  number,
-		Comment: comment,
-	})
+	c.list.AddItem(pkg)
 
 	if err := c.list.Save(); err != nil {
 		return err

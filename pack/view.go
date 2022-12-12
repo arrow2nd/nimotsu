@@ -13,9 +13,9 @@ func (p *Package) CreateViewData() [][]string {
 
 	for _, status := range p.statuses {
 		data = append(data, []string{
-			p.trackingNumber,
-			p.comment,
-			string(p.carrierName),
+			p.Number,
+			p.Comment,
+			string(p.Carrier),
 			status.message,
 			status.date,
 			status.office,

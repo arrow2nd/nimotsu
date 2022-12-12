@@ -6,17 +6,10 @@ import (
 )
 
 func TestPackInfo_CreateViewData(t *testing.T) {
-	type fields struct {
-		carrier  Carrier
-		number   string
-		comment  string
-		statuses []status
-	}
-
-	testFields := fields{
-		carrier: "わんわん運輸",
-		number:  "0123456789",
-		comment: "お肉",
+	testFields := Package{
+		Carrier: "わんわん運輸",
+		Number:  "0123456789",
+		Comment: "お肉",
 		statuses: []status{{
 			date:    "2021/11/23 00:00",
 			message: "荷物受付",
@@ -33,9 +26,7 @@ func TestPackInfo_CreateViewData(t *testing.T) {
 	}}
 
 	t.Run("表データ作成", func(t *testing.T) {
-		p := New(testFields.carrier, testFields.number, testFields.comment)
-		p.statuses = testFields.statuses
-		if got := p.CreateViewData(); !reflect.DeepEqual(got, want) {
+		if got := testFields.CreateViewData(); !reflect.DeepEqual(got, want) {
 			t.Errorf("PackInfo.CreateViewData() = %v, want %v", got, want)
 		}
 	})

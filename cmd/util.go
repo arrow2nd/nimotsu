@@ -18,8 +18,8 @@ func setCarrierFlags(cmd *cobra.Command) {
 }
 
 // getCarrierName : 配送業者IDをフラグから取得
-func getCarrierName(flags *pflag.FlagSet) (pack.Carrier, error) {
-	var carrierName pack.Carrier
+func getCarrierName(flags *pflag.FlagSet) (pack.CarrierName, error) {
+	var carrierName pack.CarrierName
 	count := 0
 
 	for name, c := range pack.GetCarriers() {
@@ -57,7 +57,7 @@ func inputComment() (string, error) {
 }
 
 // selectCarrier : 配送業者を選択
-func selectCarrier() (pack.Carrier, error) {
+func selectCarrier() (pack.CarrierName, error) {
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}?",
 		Active:   `{{ ">" | cyan }} {{ . | cyan }}`,
@@ -76,11 +76,11 @@ func selectCarrier() (pack.Carrier, error) {
 		return "", err
 	}
 
-	return pack.Carrier(result), nil
+	return pack.CarrierName(result), nil
 }
 
 // selectTrackingNumber : リスト内の追跡番号を選択
-func (c *Cmd) selectTrackingNumber() (string, error) {
+func (c *Cmd) selectTrackingNumber() (pack.Package, error) {
 	items := c.list.Get()
 
 	templates := &promptui.SelectTemplates{
@@ -100,10 +100,10 @@ func (c *Cmd) selectTrackingNumber() (string, error) {
 
 	idx, _, err := prompt.Run()
 	if err != nil {
-		return "", err
+		return pack.Package{}, err
 	}
 
-	return items[idx].Number, nil
+	return items[idx], nil
 }
 
 // showSuccessMessage : 完了メッセージ
