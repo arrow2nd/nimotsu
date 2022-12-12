@@ -1,7 +1,7 @@
 package pack
 
 import (
-	"fmt"
+	"errors"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
@@ -13,9 +13,9 @@ func (p *Package) CreateViewData() [][]string {
 
 	for _, status := range p.statuses {
 		data = append(data, []string{
-			p.trackingNumber,
-			p.comment,
-			string(p.carrierName),
+			p.Number,
+			p.Comment,
+			string(p.Carrier),
 			status.message,
 			status.date,
 			status.office,
@@ -29,7 +29,7 @@ func (p *Package) CreateViewData() [][]string {
 func (p *Package) View() error {
 	data := p.CreateViewData()
 	if len(data) == 0 {
-		return fmt.Errorf("tracking number or shipping carrier is incorrect")
+		return errors.New("tracking number or shipping carrier is incorrect")
 	}
 
 	ShowTable(&data)

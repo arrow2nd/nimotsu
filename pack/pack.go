@@ -4,10 +4,10 @@ import "errors"
 
 // Package : 荷物の情報
 type Package struct {
-	carrierName    Carrier
-	trackingNumber string
-	comment        string
-	statuses       []status
+	Carrier  CarrierName
+	Number   string
+	Comment  string
+	statuses []status
 }
 
 // status : 配送状態
@@ -17,23 +17,14 @@ type status struct {
 	office  string
 }
 
-// New : 生成
-func New(name Carrier, number, comment string) *Package {
-	return &Package{
-		carrierName:    name,
-		trackingNumber: number,
-		comment:        comment,
-	}
-}
-
 // Tracking : 追跡
 func (p *Package) Tracking() error {
-	c, ok := carriers[p.carrierName]
+	c, ok := carriers[p.Carrier]
 	if !ok {
 		return errors.New("no carrier specified")
 	}
 
-	statuses, err := c.tracking(p.trackingNumber)
+	statuses, err := c.tracking(p.Number)
 	if err != nil {
 		return err
 	}

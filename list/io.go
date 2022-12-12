@@ -16,7 +16,7 @@ func (l *List) SetDir(dir string) {
 
 // Save : ファイルへ保存
 func (l *List) Save() error {
-	buf, err := yaml.Marshal(l.items)
+	buf, err := yaml.Marshal(l.packages)
 	if err != nil {
 		return err
 	}
@@ -39,7 +39,7 @@ func (l *List) Load() error {
 		return err
 	}
 
-	return yaml.Unmarshal(buf, &l.items)
+	return yaml.Unmarshal(buf, &l.packages)
 }
 
 func isNotExist(path string) bool {

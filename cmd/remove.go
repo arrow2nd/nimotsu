@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"errors"
 
 	"github.com/spf13/cobra"
 )
@@ -23,15 +23,15 @@ func (c *Cmd) newRemoveCmd() *cobra.Command {
 
 func (c *Cmd) execRemoveCmd(cmd *cobra.Command, args []string) error {
 	if c.list.IsEmpty() {
-		return fmt.Errorf("list is empty")
+		return errors.New("list is empty")
 	}
 
-	number, err := c.selectTrackingNumber()
+	item, err := c.selectTrackingNumber()
 	if err != nil {
 		return nil
 	}
 
-	if err := c.list.RemoveItem(number); err != nil {
+	if err := c.list.RemoveItem(item.Number); err != nil {
 		return err
 	}
 

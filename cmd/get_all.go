@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"errors"
 	"sync"
 
 	"github.com/arrow2nd/nimotsu/pack"
@@ -24,25 +24,23 @@ func (c *Cmd) newGetAllCmd() *cobra.Command {
 
 func (c *Cmd) execGetAllCmd(cmd *cobra.Command, args []string) error {
 	if len(c.list.Get()) == 0 {
-		return fmt.Errorf("no package to track")
+		return errors.New("no package to track")
 	}
 
 	results := [][]string{}
 	eg := errgroup.Group{}
 	mutex := sync.Mutex{}
 
-	for _, item := range c.list.Get() {
-		item := item
+	for _, pkg := range c.list.Get() {
+		pkg := pkg
 
 		eg.Go(func() error {
-			pack := pack.New(pack.Carrier(item.Carrier), item.Number, item.Comment)
-
-			if err := pack.Tracking(); err != nil {
+			if err := pkg.Tracking(); err != nil {
 				return err
 			}
 
 			mutex.Lock()
-			results = append(results, pack.CreateViewData()...)
+			results = append(results, pkg.CreateViewData()...)
 			mutex.Unlock()
 
 			return nil

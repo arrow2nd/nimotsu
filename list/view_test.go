@@ -3,10 +3,12 @@ package list
 import (
 	"reflect"
 	"testing"
+
+	"github.com/arrow2nd/nimotsu/pack"
 )
 
 func TestList_createTableData(t *testing.T) {
-	items := []Item{{
+	items := []pack.Package{{
 		Carrier: "A",
 		Number:  "123456",
 		Comment: "testA",
@@ -17,7 +19,7 @@ func TestList_createTableData(t *testing.T) {
 		"A",
 	}}
 	t.Run("表データ作成", func(t *testing.T) {
-		l := &List{items: items}
+		l := &List{packages: items}
 		if got := l.createTableData(); !reflect.DeepEqual(got, want) {
 			t.Errorf("List.createTableData() = %v, want %v", got, want)
 		}

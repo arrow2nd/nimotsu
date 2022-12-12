@@ -8,7 +8,7 @@ import (
 )
 
 // CarrierOCS : OCS（ANAの国際輸送サービス）
-const CarrierOCS Carrier = "OCS"
+const CarrierOCS CarrierName = "OCS"
 
 func init() {
 	carriers[CarrierOCS] = &carrier{

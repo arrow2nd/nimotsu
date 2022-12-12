@@ -13,7 +13,7 @@ func (c *Cmd) newEditCmd() *cobra.Command {
 }
 
 func (c *Cmd) execEditCmd(cmd *cobra.Command, args []string) error {
-	number, err := c.selectTrackingNumber()
+	item, err := c.selectTrackingNumber()
 	if err != nil {
 		return nil
 	}
@@ -23,7 +23,7 @@ func (c *Cmd) execEditCmd(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 
-	if err := c.list.ChangeComment(number, comment); err != nil {
+	if err := c.list.ChangeComment(item.Number, comment); err != nil {
 		return err
 	}
 
