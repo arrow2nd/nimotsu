@@ -7,21 +7,28 @@ import (
 	"github.com/arrow2nd/nimotsu/list"
 )
 
+const (
+	ExitCodeOK int = iota
+	ExitCodeErrHomeDir
+	ExitCodeErrLoad
+	ExitCodeErrExec
+)
+
 func main() {
 	list := list.New()
 
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		panic(err)
+		os.Exit(ExitCodeErrHomeDir)
 	}
 
 	list.SetDir(homeDir)
 	if err := list.Load(); err != nil {
-		panic(err)
+		os.Exit(ExitCodeErrLoad)
 	}
 
 	cmd := cmd.New(list)
 	if err := cmd.Execute(); err != nil {
-		panic(err)
+		os.Exit(ExitCodeErrExec)
 	}
 }
