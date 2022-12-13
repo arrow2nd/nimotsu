@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/arrow2nd/nimotsu/cmd"
@@ -19,11 +20,13 @@ func main() {
 
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
+		printError(err)
 		os.Exit(ExitCodeErrHomeDir)
 	}
 
 	list.SetDir(homeDir)
 	if err := list.Load(); err != nil {
+		printError(err)
 		os.Exit(ExitCodeErrLoad)
 	}
 
@@ -31,4 +34,8 @@ func main() {
 	if err := cmd.Execute(); err != nil {
 		os.Exit(ExitCodeErrExec)
 	}
+}
+
+func printError(e error) {
+	fmt.Fprintf(os.Stderr, "Error: %s\n", e.Error())
 }
