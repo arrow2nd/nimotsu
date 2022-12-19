@@ -21,42 +21,33 @@ func init() {
 }
 
 func trackingBySagawa(trackingNumber string) ([]status, error) {
-	const trackingURL = "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
+	baseURL := "https://k2k.sagawa-exp.co.jp/p/web/okurijosearch.do"
 
 	val := url.Values{}
 	val.Add("okurijoNo", trackingNumber)
 
-	doc, err := fetch(trackingURL, val)
+	doc, err := fetch(baseURL, val)
 	if err != nil {
 		return nil, err
 	}
 
 	results := []status{}
+	table := doc.Find(".table_okurijo_detail2").Eq(1)
 
-	// TODO: Eqで2個目の要素をもらってインデントを減らしたい
-	doc.Find("table.table_basic.table_okurijo_detail2").Each(func(i int, s *goquery.Selection) {
-		// 1ループ目は荷物情報なので読み飛ばす
+	table.Find("tr").Each(func(i int, s *goquery.Selection) {
+		// 表のタイトルを読み飛ばす
 		if i == 0 {
 			return
 		}
 
-		s.Find("tr").Each(func(i int, s *goquery.Selection) {
-			// 表のタイトルを読み飛ばす
-			if i == 0 {
-				return
-			}
+		td := s.Find("td").Map(func(_ int, s *goquery.Selection) string {
+			return removeConsecutiveSpace(s.Text())
+		})
 
-			field := []string{}
-			// TODO: Map()を使う形にしたい
-			s.Find("td").Each(func(i int, s *goquery.Selection) {
-				field[i] = removeConsecutiveSpace(s.Text())
-			})
-
-			results = append(results, status{
-				date:    field[1],
-				message: field[0][3:], // 先頭の文字を削除
-				office:  field[2],
-			})
+		results = append(results, status{
+			date:    td[1],
+			message: td[0][3:], // 先頭の文字を削除
+			office:  td[2],
 		})
 	})
 
