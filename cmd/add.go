@@ -61,8 +61,9 @@ func (c *Cmd) execAddCmd(cmd *cobra.Command, args []string) error {
 		comment = result
 	}
 
-	c.list.AddItem(pkg)
+	pkg.Comment = comment
 
+	c.list.AddItem(pkg)
 	if err := c.list.Save(); err != nil {
 		return err
 	}
