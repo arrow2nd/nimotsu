@@ -32,7 +32,7 @@ func trackingBySagawa(trackingNumber string) ([]status, error) {
 	}
 
 	results := []status{}
-	table := doc.Find("table.table_basic.table_okurijo_detail2").Eq(2)
+	table := doc.Find(".table_okurijo_detail2").Eq(1)
 
 	table.Find("tr").Each(func(i int, s *goquery.Selection) {
 		// 表のタイトルを読み飛ばす
