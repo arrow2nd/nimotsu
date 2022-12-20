@@ -2,9 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.3] - 2022-12-20
+
 ### Fixed
 
 - 佐川急便の荷物が追跡できない
+- `add` でコメントの追加ができない
 
 ## [1.3.2] - 2022-12-12
 
@@ -71,7 +74,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.2...HEAD
+[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.3...HEAD
+[1.3.2]: https://github.com/arrow2nd/nimotsu/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/arrow2nd/nimotsu/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/arrow2nd/nimotsu/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/arrow2nd/nimotsu/compare/v1.2.1...v1.3.0
