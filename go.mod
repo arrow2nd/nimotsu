@@ -3,7 +3,7 @@ module github.com/arrow2nd/nimotsu
 go 1.16
 
 require (
-	github.com/PuerkitoBio/goquery v1.9.1
+	github.com/PuerkitoBio/goquery v1.9.2
 	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/fatih/color v1.16.0
 	github.com/kr/pretty v0.1.0 // indirect
