@@ -18,7 +18,7 @@ func Test_fetch(t *testing.T) {
 		{
 			name: "取得できるか",
 			args: args{
-				url: "http://example.com/",
+				url: "https://httpstat.us/200",
 				val: url.Values{},
 			},
 			wantErr: false,
