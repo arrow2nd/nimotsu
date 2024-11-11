@@ -40,14 +40,15 @@ brews:
       bin.install "anct"
 
 scoop:
-  repository:
-    owner: arrow2nd
-    name: scoop-bucket
-    token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-  url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-  homepage: "https://arrow2nd.com/works/nimotsu"
-  description: "CLI tool to tracking packages in Japan 📦"
-  license: "MIT"
+  - name: anct
+    repository:
+      owner: arrow2nd
+      name: scoop-bucket
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    homepage: "https://arrow2nd.com/works/nimotsu"
+    description: "CLI tool to tracking packages in Japan 📦"
+    license: "MIT"
 
 checksum:
   name_template: "checksums.txt"
