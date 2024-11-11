@@ -1,3 +1,4 @@
+version: 2
 before:
   hooks:
     - go mod tidy
@@ -25,22 +26,21 @@ archives:
         format: zip
 brews:
   - name: nimotsu
-    tap:
+    repository:
       owner: arrow2nd
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     url_template: "https://github.com/arrow2nd/nimotsu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-    folder: Formula
     homepage: "https://arrow2nd.com/works/nimotsu"
     description: "CLI tool to tracking packages in Japan 📦"
     license: "MIT"
     test: |
-      system "#{bin}/nimotsu ver"
+      system "#{bin}/anct -v"
     install: |
-      bin.install "nimotsu"
+      bin.install "anct"
 
 scoop:
-  bucket:
+  repository:
     owner: arrow2nd
     name: scoop-bucket
     token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
