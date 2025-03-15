@@ -22,8 +22,7 @@ archives:
       {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}
     format_overrides:
-      - goos: windows
-        format: zip
+      - formats: ['zip']
 brews:
   - name: nimotsu
     repository:
