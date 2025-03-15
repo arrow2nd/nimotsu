@@ -2,7 +2,13 @@
 
 ## [Unreleased]
 
-## [1.3.4] - 2024-11-q
+## [1.3.5] - 2025-03-16
+
+### Security
+
+- 依存関係を更新
+
+## [1.3.4] - 2024-11-1
 
 ### Security
 
@@ -80,7 +86,8 @@
 
 - リリースしました！
 
-[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.3...HEAD
+[unreleased]: https://github.com/arrow2nd/nimotsu/compare/v1.3.5...HEAD
+[1.3.4]: https://github.com/arrow2nd/nimotsu/compare/v1.3.4...v1.3.5
 [1.3.3]: https://github.com/arrow2nd/nimotsu/compare/v1.3.3...v1.3.4
 [1.3.2]: https://github.com/arrow2nd/nimotsu/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/arrow2nd/nimotsu/compare/v1.3.1...v1.3.2
