@@ -28,12 +28,9 @@ func (l *List) View() error {
 		return errors.New("list is empty")
 	}
 
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"追跡番号", "コメント", "配送業者"})
-	table.SetBorder(true)
-	table.SetRowLine(true)
-	table.SetAutoMergeCells(true)
-	table.AppendBulk(data)
+	table := tablewriter.NewTable(os.Stdout)
+	table.Header([]string{"追跡番号", "コメント", "配送業者"})
+	table.Bulk(data)
 	table.Render()
 
 	return nil
