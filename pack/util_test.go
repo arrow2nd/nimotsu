@@ -1,40 +1,41 @@
 package pack
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"testing"
 )
 
 func Test_fetch(t *testing.T) {
-	type args struct {
-		url string
-		val url.Values
-	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
+		name       string
+		statusCode int
+		wantErr    bool
 	}{
 		{
-			name: "取得できるか",
-			args: args{
-				url: "https://httpstat.us/200",
-				val: url.Values{},
-			},
-			wantErr: false,
+			name:       "取得できるか",
+			statusCode: http.StatusOK,
+			wantErr:    false,
 		},
 		{
-			name: "エラーが返るか（404）",
-			args: args{
-				url: "https://httpstat.us/404",
-				val: url.Values{},
-			},
-			wantErr: true,
+			name:       "エラーが返るか（404）",
+			statusCode: http.StatusNotFound,
+			wantErr:    true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := fetch(tt.args.url, tt.args.val)
+			// テストサーバーを作成
+			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(tt.statusCode)
+				if tt.statusCode == http.StatusOK {
+					w.Write([]byte("<html><body>Test</body></html>"))
+				}
+			}))
+			defer ts.Close()
+
+			got, err := fetch(ts.URL, url.Values{})
 			if (err != nil) != tt.wantErr {
 				t.Errorf("fetch() error = %v, wantErr %v", err, tt.wantErr)
 				return

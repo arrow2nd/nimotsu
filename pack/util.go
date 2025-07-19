@@ -6,13 +6,24 @@ import (
 	"net/url"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
 // fetch : Webサイトを取得
 func fetch(url string, val url.Values) (*goquery.Document, error) {
-	res, err := http.PostForm(url, val)
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("POST", url, strings.NewReader(val.Encode()))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
