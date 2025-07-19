@@ -38,11 +38,8 @@ func (p *Package) View() error {
 
 // ShowTable : テーブルを表示
 func ShowTable(data *[][]string) {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"追跡番号", "コメント", "配送業者", "配達状況", "日時", "営業所"})
-	table.SetBorder(true)
-	table.SetRowLine(true)
-	table.SetAutoMergeCells(true)
-	table.AppendBulk(*data)
+	table := tablewriter.NewTable(os.Stdout)
+	table.Header([]string{"追跡番号", "コメント", "配送業者", "配達状況", "日時", "営業所"})
+	table.Bulk(*data)
 	table.Render()
 }
