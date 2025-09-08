@@ -9,8 +9,8 @@ require (
 	github.com/fatih/color v1.18.0
 	github.com/manifoldco/promptui v0.9.0
 	github.com/olekukonko/tablewriter v1.0.9
-	github.com/spf13/cobra v1.9.1
-	github.com/spf13/pflag v1.0.7
+	github.com/spf13/cobra v1.10.1
+	github.com/spf13/pflag v1.0.9
 	github.com/stretchr/testify v1.11.0
 	golang.org/x/sync v0.16.0
 	gopkg.in/yaml.v2 v2.4.0
