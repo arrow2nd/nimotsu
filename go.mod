@@ -8,7 +8,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.10.3
 	github.com/fatih/color v1.18.0
 	github.com/manifoldco/promptui v0.9.0
-	github.com/olekukonko/tablewriter v1.0.9
+	github.com/olekukonko/tablewriter v1.1.0
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/pflag v1.0.10
 	github.com/stretchr/testify v1.11.1
